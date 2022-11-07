@@ -1,10 +1,220 @@
-@startuml
+@startuml test
 
-class test
+' Model
+package model
 {
-    + String text
-    void build()
+    class Image
+    {
+        - path: String
+        - List<perspective>: Perspective
+        + getPath(): String
+        + addPerspective(perspective: Perspective): void
+    }
+
+    class Perspective
+    {
+        - position: Position
+        - zoom: int
+        + getPosition(): Position
+        + getX(): int
+        + getY(): int
+        + getZoom(): int
+        + setPosition(position: Position): void
+        + setZoom(int percentage): void
+    }
+
+    class Position
+    {
+        - x: int
+        - y: int
+        + setPosition(int x, int y): void
+    }
+
+    abstract Subject
+    {
+        - observers: List<Observer>
+        + attach(o: Obserer):void
+        + dettach(o: Observer):void
+        + notifyObserver():void
+    }
 }
+Image "0" -- "1" Perspective
+Perspective "0" -- "1" Position
+
+
+' Observer
+
+
+
+
+Subject <|-- Image
+Subject <|-- Perspective
+
+Subject o- "*" Observer
+
+Observer <|- StaticImageView
+Observer <|- ModificationImageView
+
+Image <-- StaticImageView
+
+Image <-- ModificationImageView
+Perspective <-- ModificationImageView
+
+package Controller
+{
+    class MainController
+    {
+        - image: Image
+        - views: List<ImageView>
+        - activeView: int
+    }
+
+    class OptionController
+    {
+
+    }
+
+    ' Controller
+    class ImageController
+    {
+        - image: Image
+        + loadImage()
+    }
+
+    class StaticController
+    {
+
+    }
+
+    class ModificationController
+    {
+        translate(int x, int y): void
+        zoom(int percentage): void
+    }
+
+    interface Observer
+    {
+        update():void
+    }
+    class CommandManager
+    {
+        - instance: CommandManager
+        - commands: List<Command>
+        - CommandManager()
+        + Execute()
+        + getInstance(): CommandManager
+        + attachCommands(commands: List<Command>): void
+        + detachCommnads(commands: List<Command>): void 
+    }
+}
+
+MainController -> ImageController
+MainController -> OptionController
+
+ImageController <|- StaticController
+ImageController <|- ModificationController
+
+ImageController "0" -- "1" Image
+
+ImageController -- ImageView
+
+' Command
+
+
+
+Command <|- MoveImageCommand
+Command <|- ZoomImageCommand
+Command <|- UndoModificationCommand
+Command <|- SaveImageCommand
+Command <|- LoadImageCommand
+Command <|- ChangeViewCommand
+
+
+' View
+package View
+{
+   
+    class MainView
+    {
+
+    }
+
+    class OptionView
+    {
+
+    }
+
+    abstract ImageView
+    {
+        - commands: List<Command>
+        + activate(): void
+        + deActivate(): void
+    }
+
+    class StaticImageView
+    {
+
+    }
+
+    class ModificationImageView
+    {
+
+    }
+    abstract Command
+    {
+        - receiver: IReceiver 
+        Execute(): void
+        IsConditionMet(): bool
+    }
+
+    class MoveImageCommand
+    {
+
+    }
+
+    class ZoomImageCommand
+    {
+
+    }
+
+    class UndoModificationCommand
+    {
+
+    }
+
+    class SaveImageCommand
+    {
+
+    }
+
+    class LoadImageCommand
+    {
+        
+    }
+
+    class ChangeViewCommand
+    {
+
+    }
+    MainView -- MainController
+    OptionView -- OptionController
+    ImageView -- ImageController
+}
+
+MainView -> OptionView
+MainView -> ImageView 
+
+ImageView <|- StaticImageView
+ImageView <|- ModificationImageView
+
+ImageView -- Command
+Command "0" -- "1" ImageController
+
+' Singleton
+
+
+
+CommandManager "0" -- "0..*" Command
 
 legend
 |= field |= method |=  |
