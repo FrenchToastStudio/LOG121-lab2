@@ -1,7 +1,5 @@
 package log121.lab2.model;
 
-//TODO: Décommenter
-
 import log121.lab2.view.Observer;
 
 import java.util.ArrayList;
