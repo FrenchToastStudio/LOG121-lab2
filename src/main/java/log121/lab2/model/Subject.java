@@ -1,7 +1,11 @@
 package log121.lab2.model;
 
 //TODO: Décommenter
-/*
+
+import log121.lab2.view.Observer;
+
+import java.util.ArrayList;
+
 public abstract class Subject {
     private ArrayList<Observer> observers;
 
@@ -14,8 +18,9 @@ public abstract class Subject {
     }
 
     public void notifyObservers(){
-
+        for (Observer o : observers){
+            o.update();
+        }
     }
 }
 
- */
