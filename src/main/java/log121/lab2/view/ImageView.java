@@ -1,8 +1,16 @@
 package log121.lab2.view;
 
-public abstract class ImageView {
+import log121.lab2.controller.Command;
 
-    public abstract void activate();
+import java.util.List;
 
-    public abstract void deActivate();
+public abstract class ImageView extends View{
+
+    public ImageView(List<Command> commands) {
+        super(commands);
+
+
+
+    }
+
 }
