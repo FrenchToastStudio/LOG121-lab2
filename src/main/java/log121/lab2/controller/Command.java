@@ -7,11 +7,13 @@ public abstract class Command {
         //this.relatedClassName = view.getClass().getName();
     }
 
-    public abstract void Execute();
+    public abstract void execute();
+
+    public abstract void unExecute();
 
     public abstract boolean isConditionMet();
 }
-    /**
+    /*
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Command)
