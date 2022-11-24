@@ -21,7 +21,7 @@ public class ModificationController extends ImageController{
     {
         deleteElementsAfterPointer(undoRedoPointer);
         PerspectiveMomento m = createMomento();
-        Command command = new UndoModificationCommand(m, perspective);
+        Command command = new UndoModificationCommand(m, m.getPerspective());
         command.execute();
         commandStack.push(command);
         undoRedoPointer++;
