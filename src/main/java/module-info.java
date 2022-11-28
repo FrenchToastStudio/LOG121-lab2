@@ -1,6 +1,7 @@
 module log121.lab2 {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
 
     opens log121.lab2 to javafx.fxml;
