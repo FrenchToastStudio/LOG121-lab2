@@ -27,8 +27,7 @@ public class ModificationImageView extends ImageView {
 
     @Override
     public void update() {
-
-        }
-
+        
     }
+
 }

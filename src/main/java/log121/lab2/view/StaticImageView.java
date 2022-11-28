@@ -18,6 +18,11 @@ public class StaticImageView extends ImageView {
     }
 
     @Override
+    public void update(String path) {
+
+    }
+
+    @Override
     public void update() {
 
     }
