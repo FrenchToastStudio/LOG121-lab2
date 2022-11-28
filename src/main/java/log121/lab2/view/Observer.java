@@ -1,8 +1,6 @@
 package log121.lab2.view;
 
-public class Observer {
+public interface Observer {
 
-    public void update(){
-
-    }
+    void update();
 }
