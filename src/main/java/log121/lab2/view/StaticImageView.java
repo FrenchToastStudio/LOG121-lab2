@@ -13,6 +13,11 @@ public class StaticImageView extends ImageView {
     }
 
     @Override
+    public void update(int x, int y, int zoom) {
+
+    }
+
+    @Override
     public void update() {
 
     }

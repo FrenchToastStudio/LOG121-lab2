@@ -2,6 +2,7 @@ package log121.lab2.view;
 
 import log121.lab2.controller.Command;
 import log121.lab2.controller.CommandManager;
+import log121.lab2.model.Position;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,6 +15,8 @@ import java.util.List;
 public abstract class ImageView extends JPanel implements View, Observer{
 
     private List<Command> commands;
+    protected String path;
+    protected int x,y,zoom;
 
     public ImageView(List<Command> commands) {
         this .commands = commands;
