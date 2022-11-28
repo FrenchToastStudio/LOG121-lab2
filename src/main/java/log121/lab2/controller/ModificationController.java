@@ -32,7 +32,7 @@ public class ModificationController extends ImageController{
     }
 
     public void undo(){
-    
+
     }
 
     private void createMemento(){

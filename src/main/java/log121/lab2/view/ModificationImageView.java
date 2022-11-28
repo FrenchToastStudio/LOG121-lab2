@@ -1,2 +1,4 @@
-package log121.lab2.view;public class ModificationImageView {
+package log121.lab2.view;
+
+public class ModificationImageView {
 }
