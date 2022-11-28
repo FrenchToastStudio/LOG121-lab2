@@ -4,7 +4,7 @@ import log121.lab2.controller.Command;
 
 import java.util.List;
 
-public class StaticImageView extends ImageView{
+public class StaticImageView extends ImageView {
 
     private List<Command> commands;
 
