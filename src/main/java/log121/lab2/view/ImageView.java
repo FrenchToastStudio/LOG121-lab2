@@ -11,14 +11,23 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class ImageView extends JPanel implements View{
+public abstract class ImageView extends JPanel implements View, Observer{
 
     private List<Command> commands;
 
     public ImageView(List<Command> commands) {
         this .commands = commands;
     }
-
+    /**
+     * Show an image from a path, Have perspective to 1 by defauly
+     * @param imagePath
+     * @param x
+     * @param y
+     */
+    public void showImage(String imagePath, int x, int y)
+    {
+        showImage(imagePath, x, y, 1);
+    }
     /**
      * Show an image from a path, Have perspective to 1 by defauly
      * @param imagePath
@@ -36,9 +45,9 @@ public abstract class ImageView extends JPanel implements View{
         }
     }
 
-    public void showImage(BufferedImage image, int x, int y, int perspective)
+    public void showImage(BufferedImage image, int x, int y, int zoom)
     {
-        Image scaledImage = image.getScaledInstance(image.getWidth() * perspective, image.getHeight() * perspective, image.SCALE_SMOOTH);
+        Image scaledImage = image.getScaledInstance(image.getWidth() * zoom, image.getHeight() * zoom, image.SCALE_SMOOTH);
         getGraphics().drawImage(scaledImage, x, y, null);
     }
 
