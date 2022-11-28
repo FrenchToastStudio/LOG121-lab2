@@ -12,4 +12,8 @@ public class StaticImageView extends ImageView {
         super(commands);
     }
 
+    @Override
+    public void update() {
+
+    }
 }
