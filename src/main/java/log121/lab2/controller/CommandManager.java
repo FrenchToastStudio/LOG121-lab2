@@ -26,7 +26,7 @@ public class CommandManager {
         for (String key: commands.keySet()) {
             for (Command command: commands.get(key)) {
                 if (command.isConditionMet())
-                    command.Execute();
+                    command.execute();
             }
         }
     }
