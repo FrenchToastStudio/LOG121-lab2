@@ -33,10 +33,22 @@ public class CommandManager {
 
     public void attachCommand(View view, List<Command> commands)
     {
-        this.commands.put(view.getClass().getName(), commands);
+        this.commands.put(view.toString(), commands);
     }
     public void detachCommand(View view)
     {
-        this.commands.remove(view.getClass().getName());
+        this.commands.remove(view.toString());
+    }
+
+    public static void launch()
+    {
+        new Thread(new Runnable() {
+            @Override public void run() {
+                while (true)
+                {
+                    getInstance().Execute();
+                }
+            }
+        }).start();
     }
 }
