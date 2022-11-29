@@ -4,16 +4,9 @@ import log121.lab2.controller.MainController;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SelectViewMenuBar extends JMenuBar {
-
-    private static final String MENU_VIEW_1 = "View 1";
-
-    private static final String MENU_VIEW_2 = "View 2";
-
-    private static final String MENU_VIEW_3 = "View 3";
 
     private List<SelectImageMenuItem> menuItemList;
 
