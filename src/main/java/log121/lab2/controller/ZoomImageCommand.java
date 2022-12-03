@@ -1,9 +1,23 @@
 package log121.lab2.controller;
 
+import log121.lab2.model.Position;
+
 public class ZoomImageCommand extends Command{
+
+    private ModificationController modificationController;
+    private boolean hasToExecute;
+
+    private int zoom;
+    public ZoomImageCommand(ModificationController modificationController)
+    {
+        this.modificationController = modificationController;
+    }
+
     @Override
     public void execute() {
-
+        modificationController.zoom(zoom);
+        if(hasToExecute)
+            hasToExecute = false;
     }
 
     @Override
@@ -13,6 +27,10 @@ public class ZoomImageCommand extends Command{
 
     @Override
     public boolean isConditionMet() {
-        return false;
+        return hasToExecute;
+    }
+
+    public void moveToPosition(int zoom){
+        this.zoom = zoom;
     }
 }

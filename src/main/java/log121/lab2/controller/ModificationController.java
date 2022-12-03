@@ -24,7 +24,7 @@ public class ModificationController extends ImageController{
     }
 
     public void zoom(int percentage){
-
+        this.perspective.setZoom(percentage);
     }
 
     private void insertCommand()
