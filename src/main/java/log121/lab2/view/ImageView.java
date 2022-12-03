@@ -14,9 +14,15 @@ import java.util.List;
 public abstract class ImageView extends JPanel implements View, Observer{
 
     private List<Command> commands;
+    private ImageLabel imageLabel;
 
     public ImageView(List<Command> commands) {
+
         this .commands = commands;
+        super.addNotify();
+        imageLabel = new ImageLabel();
+
+        add(imageLabel);
     }
     /**
      * Show an image from a path, Have perspective to 1 by defauly
@@ -47,8 +53,8 @@ public abstract class ImageView extends JPanel implements View, Observer{
 
     public void showImage(BufferedImage image, int x, int y, int zoom)
     {
-        Image scaledImage = image.getScaledInstance(image.getWidth() * zoom, image.getHeight() * zoom, image.SCALE_SMOOTH);
-        getGraphics().drawImage(scaledImage, x, y, null);
+        imageLabel.setImageIcon(image);
+        imageLabel.setPerspective(x, y, zoom);
     }
 
     public void activate()

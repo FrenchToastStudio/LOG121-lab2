@@ -8,6 +8,8 @@ public abstract class Subject {
     private ArrayList<Observer> observers;
 
     public void attach(Observer observer){
+        if(observers == null)
+            this.observers = new ArrayList<Observer>();
         this.observers.add(observer);
     }
 
@@ -18,6 +20,11 @@ public abstract class Subject {
     public void notifyObservers(){
         for (Observer o : observers){
             o.update();
+        }
+    }
+    public void notifyObserversPathChanged(String path){
+        for (Observer o : observers){
+            o.updatePath(path);
         }
     }
 }

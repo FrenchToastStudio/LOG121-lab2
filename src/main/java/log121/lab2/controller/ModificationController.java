@@ -1,6 +1,7 @@
 package log121.lab2.controller;
 
 import log121.lab2.model.Perspective;
+import log121.lab2.view.ImageView;
 
 import java.util.Stack;
 
@@ -8,6 +9,10 @@ public class ModificationController extends ImageController{
     private Perspective perspective;
     private int undoRedoPointer = -1;
     private final Stack<Command> commandStack = new Stack<>();
+
+    public ModificationController(ImageView imageView) {
+        super(imageView);
+    }
 
     public void translate(int x, int y){
 

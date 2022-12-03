@@ -1,13 +1,14 @@
 package log121.lab2.view;
 
 import log121.lab2.controller.MainController;
+import log121.lab2.model.Subject;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainView extends JFrame {
+public class MainView extends JFrame implements Observer{
 
     private static final long serialVersionUID = 1L;
     private static final String TITRE_FENETRE = "Laboratoire 2 LOG121";
@@ -19,10 +20,13 @@ public class MainView extends JFrame {
     public MainView()
     {
         OptionView optionView = new OptionView();
-        MainController mainController = new MainController(this);
+
         imageViews = new ArrayList<ImageView>();
-        imageViews.add(new StaticImageView(Color.BLUE));
-        imageViews.add(new StaticImageView(Color.BLACK));
+        imageViews.add(new StaticImageView());
+        imageViews.add(new StaticImageView(Color.pink));
+
+        MainController mainController = new MainController(this);
+
 
         this.selectViewMenuBar = new SelectViewMenuBar(mainController,imageViews);
 
@@ -55,5 +59,22 @@ public class MainView extends JFrame {
         selectViewMenuBar.select(id);
         revalidate();
         repaint();
+    }
+
+    public void attach(Subject subject)
+    {
+        for(ImageView v : imageViews) {
+           subject.attach(v);
+        }
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void updatePath(String string) {
+
     }
 }
