@@ -23,8 +23,8 @@ public class ModificationController extends ImageController{
         this.perspective.setPosition(position);
     }
 
-    public void zoom(int percentage){
-        this.perspective.setZoom(percentage);
+    public void zoom(int zoom){
+        this.perspective.setZoom(this.perspective.getZoom()-zoom);
     }
 
     private void insertCommand()

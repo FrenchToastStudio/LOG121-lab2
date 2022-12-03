@@ -34,9 +34,9 @@ public abstract class Subject {
         }
     }
 
-    public void notifyObserverZoomChanged(int zoom){
+    public void notifyObserverZoomChanged(int height, int width){
         for (Observer o : observers){
-            o.updateZoom(zoom);
+            o.updateZoom(height, width);
         }
     }
 }

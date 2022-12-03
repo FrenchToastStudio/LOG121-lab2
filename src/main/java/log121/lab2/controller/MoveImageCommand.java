@@ -31,6 +31,7 @@ public class MoveImageCommand extends Command{
 
     public void moveToPosition(Position position){
         this.position = position;
+        hasToExecute = true;
     }
 
 }

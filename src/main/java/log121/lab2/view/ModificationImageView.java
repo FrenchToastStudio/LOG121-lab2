@@ -51,9 +51,7 @@ public class ModificationImageView extends ImageView{
 
         super.addMouseWheelListener(new MouseWheelListener(){
             public void mouseWheelMoved(MouseWheelEvent event) {
-
                 zoomImageCommand.changeZoom(event.getWheelRotation());
-
             }
         });
 
@@ -82,6 +80,7 @@ public class ModificationImageView extends ImageView{
     public ModificationImageView(List<Command> commands) {
         super(commands);
     }
+
 
 
 

@@ -49,11 +49,6 @@ public class StaticImageView extends ImageView {
     }
 
     @Override
-    public void updateZoom(int zoom) {
-
-    }
-
-    @Override
     public void updatePath(String string) {
         super.updatePath(string);
         this.showImage(string);

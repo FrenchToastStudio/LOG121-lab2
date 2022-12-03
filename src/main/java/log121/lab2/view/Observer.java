@@ -4,6 +4,6 @@ public interface Observer {
 
     void update();
     void updatePosition(int x, int y);
-    void updateZoom(int zoom);
+    void updateZoom(int heigth, int width);
     void updatePath(String string);
 }

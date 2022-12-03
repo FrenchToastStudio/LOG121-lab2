@@ -50,20 +50,36 @@ public abstract class ImageView extends JPanel implements View, Observer{
     {
         try {
             BufferedImage image = ImageIO.read(new File(imagePath));
-            showImage(image, x, y, perspective);
+            showImage(image, x, y, image.getWidth(), image.getHeight());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void showImage(BufferedImage image, int x, int y, int zoom)
+    public void showImage(BufferedImage image, int x, int y, int width, int height)
     {
         imageLabel.setImageIcon(image);
-        imageLabel.setPerspective(x, y, zoom);
+        imageLabel.setPerspective(x, y, height, width);
     }
+
+    public void updatePosition(int x,int y){
+        imageLabel.setPerspective(x,y);
+    }
+
+    @Override
+    public void updateZoom(int heigth, int width) {
+        imageLabel.setPerspective(heigth, width);
+    }
+
+
     public void updatePath(String string)
     {
         this.imagePath = string;
+    }
+
+    @Override
+    public void update() {
+
     }
 
     public void activate()
@@ -94,4 +110,5 @@ public abstract class ImageView extends JPanel implements View, Observer{
     public ImageLabel getImageLabel(){
         return imageLabel;
     }
+
 }

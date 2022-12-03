@@ -92,7 +92,7 @@ public class MainView extends JFrame implements Observer{
     }
 
     @Override
-    public void updateZoom(int zoom) {
+    public void updateZoom(int height, int width) {
 
     }
 

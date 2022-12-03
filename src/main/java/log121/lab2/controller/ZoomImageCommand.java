@@ -30,7 +30,8 @@ public class ZoomImageCommand extends Command{
         return hasToExecute;
     }
 
-    public void moveToPosition(int zoom){
+    public void changeZoom(int zoom){
         this.zoom = zoom;
+        hasToExecute = true;
     }
 }
