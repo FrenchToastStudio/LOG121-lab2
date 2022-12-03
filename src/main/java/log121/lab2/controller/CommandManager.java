@@ -2,16 +2,20 @@ package log121.lab2.controller;
 
 import log121.lab2.view.View;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class CommandManager {
     private static CommandManager instance;
-    private HashMap<String, List<Command>> commands;
+    private List<Command> commands;
+    private volatile boolean isExecuting, isModifying;
+    private List<Command> addList;
+    private List<String> removeList;
 
     private CommandManager()
     {
-        this.commands = new HashMap<>();
+        this.commands = new ArrayList<>();
+        this.removeList = new ArrayList<>();
+        this.addList = new ArrayList<>();
     }
 
     public static CommandManager getInstance()
@@ -23,21 +27,47 @@ public class CommandManager {
 
     public void Execute()
     {
-        for (String key: commands.keySet()) {
-            for (Command command: commands.get(key)) {
-                if (command.isConditionMet())
-                    command.execute();
-            }
-        }
+        this.commands.stream()
+                .filter(Command::isConditionMet)
+                .forEach(Command::execute);
+
+
     }
 
-    public void attachCommand(View view, List<Command> commands)
-    {
-        this.commands.put(view.toString(), commands);
+    public void attachCommand(View view, List<Command> commands) {
+        commands.forEach(command -> command.setClassId(view.toString()));
+        if(this.isExecuting)
+        {
+            this.addList.addAll(commands);
+        }
+        else {
+            this.commands.addAll(commands);
+        }
     }
     public void detachCommand(View view)
     {
-        this.commands.remove(view.toString());
+        if(this.isExecuting)
+        {
+            removeList.add(view.toString());
+        }
+        else {
+            this.commands.removeIf(command -> command.getClassId() == view.toString());
+        }
+    }
+
+    private void executeRemoveQueue()
+    {
+        if(!removeList.isEmpty()) {
+            this.removeList.forEach(view -> commands.removeIf(command -> Objects.equals(command.getClassId(), view)));
+            removeList = new ArrayList<>();
+        }
+    }
+    private void executeAddQueue()
+    {
+        if(!addList.isEmpty()) {
+            commands.addAll(addList);
+            addList = new ArrayList<>();
+        }
     }
 
     public static void launch()
@@ -46,9 +76,16 @@ public class CommandManager {
             @Override public void run() {
                 while (true)
                 {
+                    getInstance().executeAddQueue();
+                    getInstance().executeRemoveQueue();
+                    getInstance().isExecuting = true;
                     getInstance().Execute();
+                    getInstance().isExecuting = false;
                 }
             }
         }).start();
     }
+
+
+
 }
