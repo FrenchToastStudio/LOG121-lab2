@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 public class ImageLabel extends JLabel {
 
-    int x, y, zoom;
+    private int x, y, zoom;
     private BufferedImage image;
 
     public ImageLabel()
@@ -42,7 +42,12 @@ public class ImageLabel extends JLabel {
                 Image.SCALE_SMOOTH);
         setIcon(resizedImage);
 
-        setBounds(x,y, height, widht);
+        Container cont = this.getParent();
+        Rectangle rectangle = this.getParent().getBounds();
+
+        int xOffset = widht/2;
+        int yOffset = height/2;
+        setBounds(this.x - xOffset,this.y - yOffset, widht, height);
     }
 
     public void setImageIcon(BufferedImage image) {
