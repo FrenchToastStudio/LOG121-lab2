@@ -1,6 +1,6 @@
 package log121.lab2.model;
 
-public class Perspective {
+public class Perspective extends Subject {
     private Position position;
     private int zoom;
 
@@ -22,6 +22,7 @@ public class Perspective {
 
     public void setPosition(Position position) {
         this.position = position;
+
     }
 
     public void setZoom(int zoom) {

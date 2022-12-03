@@ -1,6 +1,7 @@
 package log121.lab2.view;
 
 import log121.lab2.controller.MainController;
+import log121.lab2.controller.ModificationController;
 import log121.lab2.model.Subject;
 
 import javax.swing.*;
@@ -23,16 +24,20 @@ public class MainView extends JFrame implements Observer{
 
         OptionView optionView = new OptionView();
 
+
         imageViews = new ArrayList<ImageView>();
+/**
         ImageView view1 = new StaticImageView();
         ImageView view2 = new StaticImageView(Color.pink);
         view1.activate();
         view2.activate();
         imageViews.add(view1);
         imageViews.add(view2);
+*/
+        imageViews.add(new StaticImageView(Color.pink));
+        imageViews.add(new ModificationImageView());
 
         MainController mainController = new MainController(this);
-
 
         this.selectViewMenuBar = new SelectViewMenuBar(mainController,imageViews);
 
@@ -59,6 +64,7 @@ public class MainView extends JFrame implements Observer{
         if(activeImageView != null)
         {
             getContentPane().remove(activeImageView);
+            activeImageView.pause();
         }
         activeImageView = imageViews.get(id);
         getContentPane().add(activeImageView);
@@ -77,6 +83,16 @@ public class MainView extends JFrame implements Observer{
 
     @Override
     public void update() {
+
+    }
+
+    @Override
+    public void updatePosition(int x, int y) {
+
+    }
+
+    @Override
+    public void updateZoom(int zoom) {
 
     }
 

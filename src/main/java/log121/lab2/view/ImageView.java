@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ImageView extends JPanel implements View, Observer{
@@ -18,6 +19,11 @@ public abstract class ImageView extends JPanel implements View, Observer{
     protected String imagePath;
 
     public ImageView(List<Command> commands) {
+
+        if(commands == null)
+        {
+            commands = new ArrayList<>();
+        }
         this.commands = commands;
         imageLabel = new ImageLabel();
         setLayout(null);
@@ -80,4 +86,12 @@ public abstract class ImageView extends JPanel implements View, Observer{
         CommandManager.getInstance().detachCommand(this);
     }
 
+    public void addCommand(Command command)
+    {
+        this.commands.add(command);
+    }
+
+    public ImageLabel getImageLabel(){
+        return imageLabel;
+    }
 }

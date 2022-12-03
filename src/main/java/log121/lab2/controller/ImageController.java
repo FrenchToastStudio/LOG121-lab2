@@ -5,10 +5,10 @@ import log121.lab2.view.ImageView;
 
 public class ImageController {
     private Image image;
-
+    ImageView view;
     public ImageController(ImageView imageView)
     {
-        Store.getInstance().getImage().attach(imageView);
+        this.view = imageView;
     }
 
     public void loadImage(){

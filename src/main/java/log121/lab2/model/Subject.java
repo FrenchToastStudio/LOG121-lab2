@@ -27,5 +27,17 @@ public abstract class Subject {
             o.updatePath(path);
         }
     }
+
+    public void notifyObserversPositionChanged(int x, int y){
+        for (Observer o : observers){
+            o.updatePosition(x,y);
+        }
+    }
+
+    public void notifyObserverZoomChanged(int zoom){
+        for (Observer o : observers){
+            o.updateZoom(zoom);
+        }
+    }
 }
 
