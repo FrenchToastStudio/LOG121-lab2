@@ -42,9 +42,6 @@ public class ImageLabel extends JLabel {
                 Image.SCALE_SMOOTH);
         setIcon(resizedImage);
 
-        Container cont = this.getParent();
-        Rectangle rectangle = this.getParent().getBounds();
-
         int xOffset = widht/2;
         int yOffset = height/2;
         setBounds(this.x - xOffset,this.y - yOffset, widht, height);
