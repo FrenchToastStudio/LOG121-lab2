@@ -5,17 +5,14 @@ import log121.lab2.model.Position;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ModificationImageView extends ImageView{
 
     private int xPosition, yPosition, zoom;
-
+    private double scalingFactor = 1.2;
     public ModificationImageView() {
         super(new ArrayList<Command>() {});
 
@@ -26,7 +23,9 @@ public class ModificationImageView extends ImageView{
         this.yPosition = this.getHeight()/2;
         this.zoom = -2;
         MoveImageCommand moveImageCommand = new MoveImageCommand(modificationController);
+        ZoomImageCommand zoomImageCommand = new ZoomImageCommand(modificationController);
         addCommand(moveImageCommand);
+        addCommand(zoomImageCommand);
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -36,24 +35,28 @@ public class ModificationImageView extends ImageView{
                 int dy = e.getY();
                 System.out.println("clicked at"+dx + " "+dy);
                 System.out.println(isMouseOnImage(e.getPoint()));
-
+                //moveImageCommand.moveToPosition(new Position(e.getX(),e.getY()));
             }
         });
-/**
+
         super.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-              /*  int dx = e.getX() - mousePt.x;
-                int dy = e.getY() - mousePt.y;
-                origin.setLocation(origin.x + dx, origin.y + dy);
-                mousePt = e.getPoint();
 
-                moveImageCommand.moveToPosition(new Position(e.getX(),e.getY()));
-
-                //repaint();
+                if(isMouseOnImage(e.getPoint())){
+                    moveImageCommand.moveToPosition(new Position(e.getX(),e.getY()));
+                }
             }
         });
-*/
+
+        super.addMouseWheelListener(new MouseWheelListener(){
+            public void mouseWheelMoved(MouseWheelEvent event) {
+
+                zoomImageCommand.changeZoom(event.getWheelRotation());
+
+            }
+        });
+
         activate();
     }
 
@@ -72,24 +75,15 @@ public class ModificationImageView extends ImageView{
         super.showImage(imagePath, xPosition, yPosition, zoom);
     }
 
+    public void showImage(int zoom){
+        super.showImage(imagePath, xPosition, yPosition, zoom);
+    }
+
     public ModificationImageView(List<Command> commands) {
         super(commands);
     }
 
-    @Override
-    public void update() {
 
-    }
-
-    @Override
-    public void updatePosition(int x, int y) {
-
-    }
-
-    @Override
-    public void updateZoom(int zoom) {
-
-    }
 
     @Override
     public void updatePath(String string) {
