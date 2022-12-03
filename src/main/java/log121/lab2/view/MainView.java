@@ -5,6 +5,7 @@ import log121.lab2.model.Subject;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.dnd.MouseDragGestureRecognizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +20,16 @@ public class MainView extends JFrame implements Observer{
     SelectViewMenuBar selectViewMenuBar;
     public MainView()
     {
+
         OptionView optionView = new OptionView();
 
         imageViews = new ArrayList<ImageView>();
-        imageViews.add(new StaticImageView());
-        imageViews.add(new StaticImageView(Color.pink));
+        ImageView view1 = new StaticImageView();
+        ImageView view2 = new StaticImageView(Color.pink);
+        view1.activate();
+        view2.activate();
+        imageViews.add(view1);
+        imageViews.add(view2);
 
         MainController mainController = new MainController(this);
 
@@ -59,6 +65,7 @@ public class MainView extends JFrame implements Observer{
         selectViewMenuBar.select(id);
         revalidate();
         repaint();
+        activeImageView.resume();
     }
 
     public void attach(Subject subject)

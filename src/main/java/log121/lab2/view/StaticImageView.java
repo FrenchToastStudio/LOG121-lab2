@@ -5,21 +5,19 @@ import log121.lab2.controller.Command;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StaticImageView extends ImageView {
 
     private List<Command> commands;
-    private int xPosition, yPosition, zoom;
-
-    public StaticImageView() {
+    private int posX, posY, zoom;
+    public StaticImageView()
+    {
         super(new ArrayList<Command>() {});
-
-        this.xPosition = this.getWidth()/2;
-        this.yPosition = this.getHeight()/2;
         this.zoom = -2;
-
         activate();
     }
 
@@ -29,8 +27,11 @@ public class StaticImageView extends ImageView {
         this.setBackground(bg);
     }
 
-    public void showImage(String imagePath) {
-        super.showImage(imagePath, xPosition/2, yPosition/2, zoom);
+    public void showImage(String imagePath)
+    {
+        this.posX = this.getWidth();
+        this.posY = this.getHeight();
+        super.showImage(imagePath, this.getWidth()/2, this.getHeight()/2, zoom);
     }
 
     public StaticImageView(List<Command> commands) {
@@ -44,6 +45,17 @@ public class StaticImageView extends ImageView {
 
     @Override
     public void updatePath(String string) {
+        super.updatePath(string);
         this.showImage(string);
+    }
+
+    @Override
+    public void resume() {
+        super.resume();
+        if(getWidth() != posX || getHeight() != posY)
+        {
+            showImage(this.imagePath);
+        }
+
     }
 }

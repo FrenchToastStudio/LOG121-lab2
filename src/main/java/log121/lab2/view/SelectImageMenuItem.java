@@ -8,6 +8,7 @@ import log121.lab2.controller.SelectViewCommand;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +32,8 @@ public class SelectImageMenuItem extends JMenuItem implements View{
         {
             selectViewCommand.setCondition(true);
         });
+
+
 
         commands = new ArrayList<>();
 

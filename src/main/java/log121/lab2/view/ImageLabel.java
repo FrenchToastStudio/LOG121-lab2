@@ -13,6 +13,7 @@ public class ImageLabel extends JLabel {
 
     public ImageLabel()
     {
+        this.setBackground(Color.black);
 
     }
     public ImageLabel(BufferedImage image, int x, int y, int zoom)
@@ -23,6 +24,7 @@ public class ImageLabel extends JLabel {
     public void setPerspective(int x, int y, int zoom) {
         this.x = x;
         this.y = y;
+
         this.zoom = zoom;
         int height = image.getHeight();
         int widht = image.getWidth();
@@ -39,6 +41,8 @@ public class ImageLabel extends JLabel {
         Image resizedImage = image.getScaledInstance(widht, height,
                 Image.SCALE_SMOOTH);
         setIcon(resizedImage);
+
+        setBounds(x,y, height, widht);
     }
 
     public void setImageIcon(BufferedImage image) {

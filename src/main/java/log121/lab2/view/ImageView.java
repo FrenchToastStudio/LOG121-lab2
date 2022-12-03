@@ -15,13 +15,12 @@ public abstract class ImageView extends JPanel implements View, Observer{
 
     private List<Command> commands;
     private ImageLabel imageLabel;
+    protected String imagePath;
 
     public ImageView(List<Command> commands) {
-
-        this .commands = commands;
-        super.addNotify();
+        this.commands = commands;
         imageLabel = new ImageLabel();
-
+        setLayout(null);
         add(imageLabel);
     }
     /**
@@ -56,6 +55,10 @@ public abstract class ImageView extends JPanel implements View, Observer{
         imageLabel.setImageIcon(image);
         imageLabel.setPerspective(x, y, zoom);
     }
+    public void updatePath(String string)
+    {
+        this.imagePath = string;
+    }
 
     public void activate()
     {
@@ -76,4 +79,5 @@ public abstract class ImageView extends JPanel implements View, Observer{
     {
         CommandManager.getInstance().detachCommand(this);
     }
+
 }
