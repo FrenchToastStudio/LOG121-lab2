@@ -4,22 +4,21 @@ import log121.lab2.model.Perspective;
 
 public class UndoModificationCommand extends Command {
     Perspective perspective;
-    PerspectiveMomento momento;
+    PerspectiveMemento memento;
 
-    public UndoModificationCommand(PerspectiveMomento momento, Perspective perspective){
-        this.momento = momento;
+    public UndoModificationCommand(PerspectiveMemento memento, Perspective perspective){
+        this.memento = memento;
         this.perspective = perspective;
     }
 
-
     @Override
     public void execute() {
-        momento.setPerspective(perspective);
+        memento.setPerspective(perspective);
     }
 
     @Override
     public void unExecute() {
-        this.perspective = momento.getPerspective();
+        this.perspective = memento.getPerspective();
     }
 
     @Override

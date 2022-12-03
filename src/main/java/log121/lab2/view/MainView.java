@@ -16,6 +16,7 @@ public class MainView extends JFrame {
     private List<ImageView> imageViews;
     private ImageView activeImageView;
     SelectViewMenuBar selectViewMenuBar;
+
     public MainView()
     {
         OptionView optionView = new OptionView();

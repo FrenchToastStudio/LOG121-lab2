@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CommandManager {
     private static CommandManager instance;
-    private HashMap<String, List<Command>> commands;
+    private final HashMap<String, List<Command>> commands;
 
     private CommandManager()
     {

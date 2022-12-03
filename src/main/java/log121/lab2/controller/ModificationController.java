@@ -20,7 +20,7 @@ public class ModificationController extends ImageController{
     private void insertCommand()
     {
         deleteElementsAfterPointer(undoRedoPointer);
-        PerspectiveMomento m = createMomento();
+        PerspectiveMemento m = createMomento();
         Command command = new UndoModificationCommand(m, m.getPerspective());
         command.execute();
         commandStack.push(command);
@@ -51,13 +51,13 @@ public class ModificationController extends ImageController{
         command.execute();
     }
 
-    private PerspectiveMomento createMomento(){
-        PerspectiveMomento m = new PerspectiveMomento();
+    private PerspectiveMemento createMomento(){
+        PerspectiveMemento m = new PerspectiveMemento();
         m.setPerspective(this.perspective);
         return m;
     }
 
-    private void setMomento(PerspectiveMomento m){
+    private void setMomento(PerspectiveMemento m){
         this.perspective = m.getPerspective();
     }
 }
