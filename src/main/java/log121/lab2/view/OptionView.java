@@ -14,7 +14,7 @@ public class OptionView extends JMenuBar {
     public OptionView(MainController mainController)
     {
         SaveImageMenuItem menuSave = new SaveImageMenuItem(OPTION_SAVE, mainController);
-        LoadImageMenuItem menuLoad = new LoadImageMenuItem(OPTION_LOAD);
+        LoadImageMenuItem menuLoad = new LoadImageMenuItem(OPTION_LOAD, mainController);
         add(menuSave);
         add(menuLoad);
     }

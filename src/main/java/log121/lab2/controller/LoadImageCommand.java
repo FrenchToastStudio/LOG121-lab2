@@ -1,20 +1,20 @@
 package log121.lab2.controller;
 
-import log121.lab2.service.LoadState;
+import log121.lab2.service.JSONReader;
 
 public class LoadImageCommand extends Command{
 
     private boolean hasToExecute;
 
-    private LoadState loadState;
+    private MainController mainController;
 
-    public LoadImageCommand(LoadState loadState) {
-        this.loadState = loadState;
+    public LoadImageCommand(MainController mainController) {
+       this.mainController = mainController;
     }
 
     @Override
     public void execute() {
-        loadState.load();
+        this.mainController.load();
         if(hasToExecute)
             hasToExecute = false;
     }

@@ -23,15 +23,8 @@ public class MainView extends JFrame implements Observer{
     {
 
         imageViews = new ArrayList<ImageView>();
-/**
-        ImageView view1 = new StaticImageView();
-        ImageView view2 = new StaticImageView(Color.pink);
-        view1.activate();
-        view2.activate();
-        imageViews.add(view1);
-        imageViews.add(view2);
-*/
-        imageViews.add(new StaticImageView(Color.pink));
+
+        imageViews.add(new StaticImageView());
         imageViews.add(new ModificationImageView());
         imageViews.add(new ModificationImageView());
 
@@ -58,7 +51,14 @@ public class MainView extends JFrame implements Observer{
         ChangeImageView(0);
 
     }
-
+    public void setImageViews(List<ModificationController> controllers)
+    {
+        imageViews = new ArrayList<>();
+        imageViews.add(new StaticImageView());
+        imageViews.addAll(controllers.stream().map(ModificationImageView::new).toList());
+        imageViews.forEach(this::add);
+        ChangeImageView(0);
+    }
     public void ChangeImageView(int id)
     {
         if(activeImageView != null)
@@ -74,12 +74,6 @@ public class MainView extends JFrame implements Observer{
         activeImageView.resume();
     }
 
-    public void attach(Subject subject)
-    {
-        for(ImageView v : imageViews) {
-           subject.attach(v);
-        }
-    }
 
     @Override
     public void update() {
@@ -100,4 +94,13 @@ public class MainView extends JFrame implements Observer{
     public void updatePath(String string) {
 
     }
+
+    public void attach(Subject subject)
+    {
+        for(ImageView v : imageViews) {
+            subject.attach(v);
+        }
+    }
+
+
 }

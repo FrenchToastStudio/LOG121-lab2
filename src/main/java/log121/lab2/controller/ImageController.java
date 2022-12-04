@@ -6,12 +6,23 @@ import log121.lab2.view.ImageView;
 public class ImageController {
     private Image image;
     ImageView view;
+
     public ImageController(ImageView imageView)
     {
-        this.view = imageView;
+        setView(imageView);
+    }
+
+    public ImageController()
+    {
+
     }
 
     public void loadImage(){
+    }
+
+    public void setView(ImageView imageView)
+    {
+        this.view = imageView;
     }
 
 }

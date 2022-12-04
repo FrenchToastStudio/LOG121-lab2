@@ -3,7 +3,8 @@ package log121.lab2.view;
 import log121.lab2.controller.Command;
 import log121.lab2.controller.CommandManager;
 import log121.lab2.controller.LoadImageCommand;
-import log121.lab2.service.LoadState;
+import log121.lab2.controller.MainController;
+import log121.lab2.service.JSONReader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,12 +18,12 @@ public class LoadImageMenuItem extends JMenuItem implements View {
     private final Color selected;
     private List<Command> commands;
 
-    public LoadImageMenuItem(String title){
+    public LoadImageMenuItem(String title,MainController mainController){
         unselected = getBackground();
         selected = Color.gray;
 
         setText(title);
-        LoadImageCommand loadImageCommand = new LoadImageCommand(new LoadState());
+        LoadImageCommand loadImageCommand = new LoadImageCommand(mainController);
         addActionListener((ActionEvent e) ->
         {
             loadImageCommand.setCondition(true);

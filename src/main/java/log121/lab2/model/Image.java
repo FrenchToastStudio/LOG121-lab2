@@ -11,12 +11,12 @@ public class Image extends Subject{
 
     public List<Perspective> perspectives;
     private BufferedImage bufferedImage;
+    private String path;
     public Image()
     {
-
+        super();
     }
 
-    private String path;
 
     public String getPath() {
         return path;
@@ -33,7 +33,7 @@ public class Image extends Subject{
 
         this.notifyObserversPathChanged(this.path);
 
-        if(this.path != null) {
+        if(this.path != null && this.perspectives != null) {
             perspectives.forEach(perspective ->
             {
                 perspective.setHeight(bufferedImage.getHeight());
@@ -42,11 +42,9 @@ public class Image extends Subject{
         }
     }
 
-    public void addPerspective(List<Perspective> perspective)
+    public void setPerspective(List<Perspective> perspective)
     {
-        if(this.perspectives == null)
-            this.perspectives = perspective;
-        this.perspectives.addAll(perspective);
+        this.perspectives = perspective;
     }
 
     public void addPerspective(Perspective perspective)
@@ -54,5 +52,8 @@ public class Image extends Subject{
         if(this.perspectives == null)
             this.perspectives = new ArrayList<>();
         this.perspectives.add(perspective);
+    }
+    public void notifyObserversPathChanged(){
+        this.notifyObserversPathChanged(this.getPath());
     }
 }

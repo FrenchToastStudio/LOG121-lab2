@@ -1,11 +1,15 @@
 package log121.lab2.controller;
 
 import log121.lab2.model.Image;
+import log121.lab2.model.Perspective;
 import log121.lab2.model.Store;
+import log121.lab2.service.JSONReader;
 import log121.lab2.service.JSONWriter;
 import log121.lab2.service.SaveState;
-import log121.lab2.view.ImageLabel;
 import log121.lab2.view.MainView;
+import log121.lab2.view.ModificationImageView;
+
+import java.util.List;
 
 public class MainController {
 
@@ -14,9 +18,8 @@ public class MainController {
     {
         this.mainView = mainView;
         Image img = new Image();
-        mainView.attach(img);
+        setImage(img);
         img.setPath("src/main/resources/log121/lab2/Image/IMG_0661.jpg");
-        Store.getInstance().setImage(img);
     }
 
     public void changeView(int viewId)
@@ -31,6 +34,30 @@ public class MainController {
     }
 
     public void load(){
+        JSONReader jsonReader = new JSONReader();
+        SaveState saveState = jsonReader.load();
+        Image image = saveState.getImage();
+        List<Perspective> perspectives = saveState.getPerspectiveList();
 
+        setPerspective(perspectives);
+        setImage(image);
+
+        Store.getInstance().setPerspectives(perspectives);
+    }
+
+    private void setImage(Image image)
+    {
+        this.mainView.attach(image);
+        Store.getInstance().setImage(image);
+    }
+    private void setPerspective(List<Perspective> perspectives)
+    {
+        mainView.setImageViews(
+         perspectives.stream().map(this::setPerspective).toList()
+        );
+    }
+    private ModificationController setPerspective(Perspective perspective)
+    {
+        return new ModificationController(perspective);
     }
 }

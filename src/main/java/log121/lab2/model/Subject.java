@@ -7,6 +7,11 @@ import java.util.ArrayList;
 public abstract class Subject {
     private ArrayList<Observer> observers;
 
+    public Subject()
+    {
+        this.observers = new ArrayList<>();
+    }
+
     public void attach(Observer observer){
         if(observers == null)
             this.observers = new ArrayList<Observer>();
@@ -22,6 +27,7 @@ public abstract class Subject {
             o.update();
         }
     }
+
     public void notifyObserversPathChanged(String path){
         for (Observer o : observers){
             o.updatePath(path);
@@ -39,5 +45,7 @@ public abstract class Subject {
             o.updateZoom(height, width);
         }
     }
+
+
 }
 

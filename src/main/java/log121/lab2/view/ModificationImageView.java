@@ -2,23 +2,36 @@ package log121.lab2.view;
 
 import log121.lab2.controller.*;
 import log121.lab2.model.Position;
+import log121.lab2.model.Subject;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ModificationImageView extends ImageView{
 
     private int xPosition, yPosition, zoom;
     private double scalingFactor = 1.2;
+    ModificationController modificationController;
+
     public ModificationImageView() {
         super(new ArrayList<Command>() {});
+        this.modificationController = new ModificationController(this);
+        viewSetUp();
+    }
 
+    public ModificationImageView(ModificationController controller) {
+        super(new ArrayList<Command>() {});
+        this.modificationController = controller;
+        modificationController.setView(this);
+        viewSetUp();
+    }
 
-        ModificationController modificationController = new ModificationController(this);
-
+    private void viewSetUp()
+    {
         this.xPosition = this.getWidth()/2;
         this.yPosition = this.getHeight()/2;
         this.zoom = -2;
@@ -35,7 +48,6 @@ public class ModificationImageView extends ImageView{
                 int dy = e.getY();
                 System.out.println("clicked at"+dx + " "+dy);
                 System.out.println(isMouseOnImage(e.getPoint()));
-                //moveImageCommand.moveToPosition(new Position(e.getX(),e.getY()));
             }
         });
 

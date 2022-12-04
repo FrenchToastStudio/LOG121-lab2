@@ -15,11 +15,15 @@ public class Store {
 
     private static Store instance;
 
+    public Store()
+    {
+        this.perspectives = new ArrayList<>();
+    }
+
     public static Store getInstance()
     {
         if(instance == null) {
             instance = new Store();
-            instance.setPerspectives(new ArrayList<>());
         }
         return  instance;
     }
@@ -30,8 +34,9 @@ public class Store {
 
     public void setImage(Image image) {
         this.image = image;
-        if(perspectives != null)
-        image.addPerspective(this.perspectives);
+        this.image.notifyObserversPathChanged();
+        if(this.perspectives != null)
+            image.setPerspective(this.perspectives);
     }
 
     public List<Perspective> getPerspectives() {
@@ -39,7 +44,11 @@ public class Store {
     }
 
     public void setPerspectives(List<Perspective> perspectives) {
+        if(this.image != null) {
+            this.image.setPerspective(perspectives);
+        }
         this.perspectives = perspectives;
+        this.perspectives.forEach(Perspective::notifyObserverObjectChanged);
     }
     public void addPerspective(Perspective perspective)
     {

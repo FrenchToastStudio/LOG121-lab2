@@ -48,6 +48,8 @@ public abstract class ImageView extends JPanel implements View, Observer{
      */
     public void showImage(String imagePath, int x, int y, int perspective)
     {
+        if(imagePath == null)
+            return;
         try {
             BufferedImage image = ImageIO.read(new File(imagePath));
             showImage(image, x, y, image.getWidth(), image.getHeight());

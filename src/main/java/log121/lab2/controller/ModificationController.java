@@ -3,7 +3,9 @@ package log121.lab2.controller;
 import log121.lab2.model.Perspective;
 import log121.lab2.model.Position;
 import log121.lab2.model.Store;
+import log121.lab2.model.Subject;
 import log121.lab2.view.ImageView;
+import log121.lab2.view.ModificationImageView;
 
 import java.util.Stack;
 
@@ -17,6 +19,18 @@ public class ModificationController extends ImageController{
         this.perspective = new Perspective();
         perspective.attach(imageView);
         Store.getInstance().addPerspective(perspective);
+    }
+
+    public ModificationController(Perspective perspective)
+    {
+        super();
+        this.perspective = perspective;
+    }
+
+    public void setView(ModificationImageView modificationImageView)
+    {
+        super.setView(modificationImageView);
+        perspective.attach(modificationImageView);
     }
 
     public void translate(Position position){

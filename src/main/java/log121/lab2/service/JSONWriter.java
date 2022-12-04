@@ -24,7 +24,7 @@ public class JSONWriter {
         JSONArray perspectiveArray = new JSONArray();
 
         //Ajouter chaque zoom et position dans perspective
-        imageObject.put("image", saveState.getImage().getPath());
+        imageObject.put("path", saveState.getImage().getPath());
 
         saveState.getPerspectiveList().forEach(perspective ->
                 {
@@ -34,6 +34,8 @@ public class JSONWriter {
                     perspectiveObject.put("zoom", perspective.getZoom());
                     positionObject.put("x", perspective.getX());
                     positionObject.put("y", perspective.getY());
+                    perspectiveObject.put("width", perspective.getWidth());
+                    perspectiveObject.put("height", perspective.getHeight());
                     perspectiveObject.put("position", positionObject);
 
                     perspectiveArray.add(perspectiveObject);

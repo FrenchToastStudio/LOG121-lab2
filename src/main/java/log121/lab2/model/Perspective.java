@@ -10,7 +10,7 @@ public class Perspective extends Subject {
 
     public Perspective()
     {
-
+        super();
     }
 
     public Position getPosition(){
@@ -37,21 +37,24 @@ public class Perspective extends Subject {
         return height;
     }
 
-    public void setHeight(int height) {
+    public Perspective setHeight(int height) {
         this.height = height;
+        return this;
     }
 
     public int getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
+    public Perspective setWidth(int width) {
         this.width = width;
+        return this;
     }
 
-    public void setPosition(Position position) {
+    public Perspective setPosition(Position position) {
         this.position = position;
         notifyObserversPositionChanged(position.getX(),position.getY());
+        return this;
     }
 
     public void setZoom(int zoom) {
@@ -81,5 +84,11 @@ public class Perspective extends Subject {
             this.height = scaledHeight;
 
         notifyObserverZoomChanged(this.height, this.width);
+    }
+
+    public void notifyObserverObjectChanged()
+    {
+        notifyObserverZoomChanged(getHeight(), getWidth());
+        notifyObserversPositionChanged(getX(), getY());
     }
 }

@@ -24,4 +24,11 @@ public class SaveState {
         return image;
     }
 
+    public void setPerspectiveList(List<Perspective> perspectiveList) {
+        this.perspectiveList = perspectiveList;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
 }
