@@ -30,19 +30,8 @@ public class Store {
 
     public void setImage(Image image) {
         this.image = image;
-        if(image.getPath() != null) {
-            perspectives.forEach(perspective ->
-            {
-                try {
-                    BufferedImage imageFile = ImageIO.read(new File(this.image.getPath()));
-
-                    perspective.setHeight(imageFile.getHeight());
-                    perspective.setWidth(imageFile.getWidth());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-        }
+        if(perspectives != null)
+        image.addPerspective(this.perspectives);
     }
 
     public List<Perspective> getPerspectives() {
@@ -54,6 +43,9 @@ public class Store {
     }
     public void addPerspective(Perspective perspective)
     {
+        if(this.image != null) {
+            this.image.addPerspective(perspective);
+        }
         this.perspectives.add(perspective);
     }
 }

@@ -5,6 +5,8 @@ public class Perspective extends Subject {
     private Position position;
     private int zoom;
     private int height, width;
+    private final int minSize = 10;
+    private final int scaleZoomBoost = 5;
 
     public Perspective()
     {
@@ -49,29 +51,31 @@ public class Perspective extends Subject {
     }
 
     public void setZoom(int zoom) {
-        if(this.width <= 1 && this.height <= 1)
+
+        if(this.width <= minSize && this.height <= minSize && zoom <0)
             return;
 
         this.zoom = zoom;
-        double zoomWithScaling = zoom*5;
+        double zoomWithScaling = zoom*scaleZoomBoost;
 
         int zoomWithScalingInt = (int) zoomWithScaling;
 
         int scaledWidth  = width;
         scaledWidth += zoomWithScalingInt;
-        if(scaledWidth <= 1)
-            width = 1;
+
+        if(scaledWidth <= minSize)
+            width = minSize;
         else
             width = scaledWidth;
 
-        int scaledHeight = zoomWithScalingInt;
-        scaledHeight += zoomWithScalingInt;
+        int scaledHeight = width - zoomWithScalingInt;
+        scaledHeight +=  zoomWithScalingInt;
 
-        if(scaledHeight <= 1)
-            this.height = 1;
+        if(scaledHeight <= minSize)
+            this.height = minSize;
         else
             this.height = scaledHeight;
 
-        notifyObserverZoomChanged(this.height, this.height);
+        notifyObserverZoomChanged(this.height, this.width);
     }
 }

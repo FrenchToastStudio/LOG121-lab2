@@ -68,7 +68,7 @@ public abstract class ImageView extends JPanel implements View, Observer{
 
     @Override
     public void updateZoom(int heigth, int width) {
-        imageLabel.setPerspective(heigth, width);
+        imageLabel.setPerspectiveScale(width, heigth);
     }
 
 
