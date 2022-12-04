@@ -2,19 +2,18 @@ package log121.lab2.view;
 
 import log121.lab2.controller.*;
 import log121.lab2.model.Position;
-import log121.lab2.model.Subject;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ModificationImageView extends ImageView{
 
     private int xPosition, yPosition, zoom;
     private double scalingFactor = 1.2;
+    private Point lastMousePos;
+
     ModificationController modificationController;
 
     public ModificationImageView() {
@@ -40,14 +39,10 @@ public class ModificationImageView extends ImageView{
         addCommand(moveImageCommand);
         addCommand(zoomImageCommand);
 
-        addMouseListener(new MouseAdapter() {
+        super.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                int dx = e.getX();
-                int dy = e.getY();
-                System.out.println("clicked at"+dx + " "+dy);
-                System.out.println(isMouseOnImage(e.getPoint()));
+            public void mousePressed(MouseEvent e) {
+                lastMousePos = e.getPoint();
             }
         });
 
@@ -56,7 +51,7 @@ public class ModificationImageView extends ImageView{
             public void mouseDragged(MouseEvent e) {
 
                 if(isMouseOnImage(e.getPoint())){
-                    moveImageCommand.moveToPosition(new Position(e.getX(),e.getY()));
+                    moveImageCommand.moveToPosition(calculateNewPosition(e.getPoint()));
                 }
             }
         });
@@ -73,6 +68,14 @@ public class ModificationImageView extends ImageView{
     public boolean isMouseOnImage(Point point){
         Rectangle rectangle = getImageLabel().getBounds();
         return rectangle.contains(point);
+    }
+
+    public Position calculateNewPosition(Point newMousePoint){
+        int newPositionX = this.xPosition + (newMousePoint.x - lastMousePos.x);
+        int newPositionY = this.yPosition + (newMousePoint.y - lastMousePos.y);
+        lastMousePos = newMousePoint;
+        updateImagePos(newPositionX,newPositionY);
+        return new Position(newPositionX,newPositionY);
     }
 
     public ModificationImageView(Color bg)
@@ -93,8 +96,10 @@ public class ModificationImageView extends ImageView{
         super(commands);
     }
 
-
-
+    public void updateImagePos(int x, int y) {
+    this.xPosition = x;
+    this.yPosition = y;
+    }
 
     @Override
     public void updatePath(String string) {
