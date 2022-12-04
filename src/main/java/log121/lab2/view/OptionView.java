@@ -1,5 +1,7 @@
 package log121.lab2.view;
 
+import log121.lab2.controller.MainController;
+
 import javax.swing.*;
 
 public class OptionView extends JMenuBar {
@@ -9,10 +11,10 @@ public class OptionView extends JMenuBar {
     private static final String OPTION_SAVE = "Sauvegarder";
     private static final String OPTION_LOAD = "Charger";
 
-    public OptionView()
+    public OptionView(MainController mainController)
     {
-        JMenuItem menuSave = new JMenuItem(OPTION_SAVE);
-        JMenuItem menuLoad = new JMenuItem(OPTION_LOAD);
+        SaveImageMenuItem menuSave = new SaveImageMenuItem(OPTION_SAVE, mainController);
+        LoadImageMenuItem menuLoad = new LoadImageMenuItem(OPTION_LOAD);
         add(menuSave);
         add(menuLoad);
     }

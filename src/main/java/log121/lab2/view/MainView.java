@@ -22,9 +22,6 @@ public class MainView extends JFrame implements Observer{
     public MainView()
     {
 
-        OptionView optionView = new OptionView();
-
-
         imageViews = new ArrayList<ImageView>();
 /**
         ImageView view1 = new StaticImageView();
@@ -36,8 +33,11 @@ public class MainView extends JFrame implements Observer{
 */
         imageViews.add(new StaticImageView(Color.pink));
         imageViews.add(new ModificationImageView());
+        imageViews.add(new ModificationImageView());
 
         MainController mainController = new MainController(this);
+
+        OptionView optionView = new OptionView(mainController);
 
         this.selectViewMenuBar = new SelectViewMenuBar(mainController,imageViews);
 
