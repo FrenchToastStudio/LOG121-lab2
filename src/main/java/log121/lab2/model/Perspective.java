@@ -5,7 +5,11 @@ public class Perspective extends Subject {
     private int zoom;
 
     public Position getPosition(){
+        if (this.position == null){
+            return new Position(0,0);
+        }
         return this.position;
+
     }
 
     public int getX(){
