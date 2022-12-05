@@ -3,7 +3,6 @@ package log121.lab2.view.basicView;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.Serial;
 import java.util.Enumeration;
 import java.util.List;

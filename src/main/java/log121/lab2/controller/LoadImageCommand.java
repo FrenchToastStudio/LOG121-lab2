@@ -18,12 +18,6 @@ public class LoadImageCommand extends Command{
         if(hasToExecute)
             hasToExecute = false;
     }
-
-    @Override
-    public void unExecute() {
-
-    }
-
     @Override
     public boolean isConditionMet() {
         return hasToExecute;

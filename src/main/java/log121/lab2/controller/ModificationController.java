@@ -56,9 +56,11 @@ public class ModificationController extends ImageController{
 
     public void zoom(int zoom){
         this.perspective.setZoom(-zoom);
+    }
+    public void stopZoom()
+    {
         addMomento();
     }
-
     public void undo()
     {
         if (pointer>=0) {
@@ -95,4 +97,6 @@ public class ModificationController extends ImageController{
         this.perspective.setWidth(width);
         this.perspective.setHeight(height);
     }
+
+
 }

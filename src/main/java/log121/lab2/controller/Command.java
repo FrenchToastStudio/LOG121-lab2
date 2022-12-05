@@ -5,12 +5,9 @@ public abstract class Command {
     private String classId;
 
     public Command() {
-        //this.relatedClassName = view.getClass().getName();
     }
 
     public abstract void execute();
-
-    public abstract void unExecute();
 
     public abstract boolean isConditionMet();
 

@@ -4,6 +4,7 @@ import log121.lab2.controller.*;
 import log121.lab2.controller.commands.CopyCommand;
 import log121.lab2.controller.commands.PasteCommand;
 import log121.lab2.controller.commands.StopTranslateCommand;
+import log121.lab2.controller.commands.StopZoomCommand;
 import log121.lab2.model.Position;
 
 import java.awt.*;
@@ -38,13 +39,15 @@ public class ModificationImageView extends ImageView{
         this.xPosition = this.getWidth()/2;
         this.yPosition = this.getHeight()/2;
         this.zoom = -2;
+
         MoveImageCommand moveImageCommand = new MoveImageCommand(modificationController);
         ZoomImageCommand zoomImageCommand = new ZoomImageCommand(modificationController);
         CopyCommand copyCommand = new CopyCommand(modificationController);
-        PasteCommand pasteCommand = new PasteCommand();
+        PasteCommand pasteCommand = new PasteCommand(modificationController);
         UndoModificationCommand undoModificationCommand = new UndoModificationCommand(modificationController);
         RedoModificationCommand redoModificationCommand = new RedoModificationCommand(modificationController);
         StopTranslateCommand stopTranslateCommand = new StopTranslateCommand(modificationController);
+        StopZoomCommand stopZoomCommand = new StopZoomCommand(modificationController);
 
         addCommand(moveImageCommand);
         addCommand(zoomImageCommand);
@@ -53,6 +56,7 @@ public class ModificationImageView extends ImageView{
         addCommand(undoModificationCommand);
         addCommand(redoModificationCommand);
         addCommand(stopTranslateCommand);
+        addCommand(stopZoomCommand);
 
         super.addMouseListener(new MouseAdapter() {
             @Override
@@ -82,9 +86,16 @@ public class ModificationImageView extends ImageView{
             }
         });
 
-        super.addMouseWheelListener(new MouseWheelListener(){
+        super.addMouseWheelListener(new CustomMouseWheelListener(){
             public void mouseWheelMoved(MouseWheelEvent event) {
+                super.mouseWheelMoved(event);
                 zoomImageCommand.changeZoom(event.getWheelRotation());
+            }
+
+            @Override
+            public void mouseWheelStop() {
+                super.mouseWheelStop();
+                stopZoomCommand.toggle();
             }
         });
 

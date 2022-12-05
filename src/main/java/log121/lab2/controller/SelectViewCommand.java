@@ -20,11 +20,6 @@ public class SelectViewCommand extends Command{
     }
 
     @Override
-    public void unExecute() {
-
-    }
-
-    @Override
     public boolean isConditionMet() {
         return hasToExecute;
     }

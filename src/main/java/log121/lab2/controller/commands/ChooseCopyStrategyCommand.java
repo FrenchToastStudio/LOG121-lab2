@@ -22,11 +22,6 @@ public class ChooseCopyStrategyCommand extends Command {
     }
 
     @Override
-    public void unExecute() {
-
-    }
-
-    @Override
     public boolean isConditionMet() {
         return needsExecution;
     }

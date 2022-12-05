@@ -16,12 +16,6 @@ public class StopTranslateCommand extends Command {
         modificationController.stopTranslate();
         hasToExecute = false;
     }
-
-    @Override
-    public void unExecute() {
-
-    }
-
     @Override
     public boolean isConditionMet() {
         return hasToExecute;

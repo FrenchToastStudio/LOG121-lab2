@@ -18,11 +18,6 @@ public class RedoModificationCommand extends Command{
     }
 
     @Override
-    public void unExecute() {
-
-    }
-
-    @Override
     public boolean isConditionMet() {
         return hasToExecute;
     }

@@ -18,10 +18,6 @@ public class SaveImageCommand extends Command{
             hasToExecute = false;
     }
 
-    @Override
-    public void unExecute() {
-
-    }
 
     @Override
     public boolean isConditionMet() {

@@ -1,9 +1,5 @@
 package log121.lab2.view;
 
-import javafx.event.EventType;
-import javafx.scene.input.KeyCode;
-
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -12,12 +8,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 
-
-
-
 public class InputHandler implements KeyListener {
     private Set<Integer> activeKeys;
-
     private List<KeyPressEventResult> commands;
 
     public InputHandler()
@@ -27,7 +19,8 @@ public class InputHandler implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent e)
+    {
 
     }
 
@@ -39,13 +32,13 @@ public class InputHandler implements KeyListener {
         if(code == 0)
             return;
         activeKeys.add(e.getKeyCode());
-        for (KeyPressEventResult command: this.commands) {
+        for (KeyPressEventResult command: this.commands)
+        {
             if(command.equals(activeKeys))
             {
                 command.execute(e);
             }
         }
-
     }
 
     @Override

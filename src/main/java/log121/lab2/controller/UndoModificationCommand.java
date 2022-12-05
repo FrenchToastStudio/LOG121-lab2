@@ -17,10 +17,6 @@ public class UndoModificationCommand extends Command {
     }
 
     @Override
-    public void unExecute() {
-    }
-
-    @Override
     public boolean isConditionMet() {
         return needExectuion;
     }
