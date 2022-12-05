@@ -5,19 +5,22 @@ import log121.lab2.controller.commands.CopyCommand;
 import log121.lab2.controller.commands.PasteCommand;
 import log121.lab2.controller.commands.StopTranslateCommand;
 import log121.lab2.model.Position;
-import log121.lab2.model.Subject;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ModificationImageView extends ImageView{
 
     private boolean isDragging;
     private int xPosition, yPosition, zoom;
     private double scalingFactor = 1.2;
+    private Point lastMousePos;
+    private boolean isDragActive;
+
     ModificationController modificationController;
 
     public ModificationImageView() {
@@ -54,22 +57,19 @@ public class ModificationImageView extends ImageView{
         addCommand(redoModificationCommand);
         addCommand(stopTranslateCommand);
 
-        addMouseListener(new MouseAdapter() {
+        super.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                int dx = e.getX();
-                int dy = e.getY();
-                System.out.println("clicked at"+dx + " "+dy);
-                System.out.println(isMouseOnImage(e.getPoint()));
+            public void mousePressed(MouseEvent e) {
+                if(isMouseOnImage(e.getPoint())){
+                    lastMousePos = e.getPoint();
+                }
             }
-
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                if (isDragging) {
+                if (isDragActive) {
                     stopTranslateCommand.toggle();
-                    isDragging = false;
+                    isDragActive = false;
                 }
             }
         });
@@ -78,10 +78,9 @@ public class ModificationImageView extends ImageView{
         super.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                requestFocusInWindow();
-                if(isMouseOnImage(e.getPoint())){
-                    isDragging = true;
-                    moveImageCommand.moveToPosition(new Position(e.getX(),e.getY()));
+
+                if(isDragActive){
+                    moveImageCommand.moveToPosition(calculateNewPosition(e.getPoint()));
                 }
             }
         });
@@ -137,7 +136,33 @@ public class ModificationImageView extends ImageView{
 
     public boolean isMouseOnImage(Point point){
         Rectangle rectangle = getImageLabel().getBounds();
-        return rectangle.contains(point);
+        boolean isOnImage = rectangle.contains(point);
+        if (isOnImage) this.isDragActive = isOnImage;
+        return isOnImage;
+    }
+
+    public Position calculateNewPosition(Point newMousePoint){
+        int newPositionX = this.xPosition + (newMousePoint.x - lastMousePos.x);
+        int newPositionY = this.yPosition + (newMousePoint.y - lastMousePos.y);
+        lastMousePos = newMousePoint;
+
+
+        Dimension windowRectangle = super.getSize();
+        if(newPositionX < 0){
+            newPositionX = 0;
+        }
+        else if(newPositionX > windowRectangle.width){
+            newPositionX = windowRectangle.width;
+        }
+        if(newPositionY < 0){
+            newPositionY = 0;
+        }
+        else if(newPositionY > windowRectangle.height){
+            newPositionY = windowRectangle.height;
+        }
+
+        updateImagePos(newPositionX,newPositionY);
+        return new Position(newPositionX,newPositionY);
     }
 
     public ModificationImageView(Color bg)
@@ -158,8 +183,10 @@ public class ModificationImageView extends ImageView{
         super(commands);
     }
 
-
-
+    public void updateImagePos(int x, int y) {
+    this.xPosition = x;
+    this.yPosition = y;
+    }
 
     @Override
     public void updatePath(String string) {
