@@ -2,27 +2,28 @@ package log121.lab2.controller;
 
 import log121.lab2.model.Perspective;
 
-public class UndoModificationCommand extends Command {
-    private ModificationController modificationController;
-    private final Perspective perspective;
+public class RedoModificationCommand extends Command{
+
     private final PerspectiveMomento momento;
+    private ModificationController modificationController;
+    private Perspective perspective;
     private boolean hasToExecute;
 
-
-    public UndoModificationCommand(PerspectiveMomento momento, Perspective perspective){
+    public RedoModificationCommand(PerspectiveMomento momento, ModificationController modificationController){
         this.momento = momento;
-        this.perspective = perspective;
+        this.modificationController = modificationController;
     }
 
     @Override
     public void execute() {
-        momento.setPerspective(perspective);
+        this.perspective = momento.getPerspective();
         if(hasToExecute)
             hasToExecute = false;
     }
 
     @Override
     public void unExecute() {
+
     }
 
     @Override
