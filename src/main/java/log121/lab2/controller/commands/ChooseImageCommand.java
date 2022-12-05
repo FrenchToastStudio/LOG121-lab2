@@ -1,6 +1,5 @@
 package log121.lab2.controller.commands;
 
-import log121.lab2.controller.Command;
 import log121.lab2.controller.MainController;
 
 public class ChooseImageCommand extends Command {

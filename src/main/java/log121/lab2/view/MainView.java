@@ -3,10 +3,10 @@ package log121.lab2.view;
 import log121.lab2.controller.MainController;
 import log121.lab2.controller.ModificationController;
 import log121.lab2.model.Subject;
+import log121.lab2.view.components.menuBar.SelectViewMenuBar;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.dnd.MouseDragGestureRecognizer;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;

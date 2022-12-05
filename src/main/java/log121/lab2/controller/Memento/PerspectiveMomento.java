@@ -1,4 +1,4 @@
-package log121.lab2.controller;
+package log121.lab2.controller.Memento;
 
 import log121.lab2.model.*;
 

@@ -1,13 +1,12 @@
-package log121.lab2.view;
+package log121.lab2.view.components.menuItem;
 
-import log121.lab2.controller.Command;
-import log121.lab2.controller.CommandManager;
-import log121.lab2.controller.LoadImageCommand;
+import log121.lab2.controller.commands.Command;
+import log121.lab2.controller.commands.CommandManager;
 import log121.lab2.controller.MainController;
 import log121.lab2.controller.commands.ChooseImageCommand;
+import log121.lab2.view.View;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,10 @@
-package log121.lab2.view;
+package log121.lab2.view.components.menuBar;
 
 import log121.lab2.controller.MainController;
+import log121.lab2.view.ImageView;
+import log121.lab2.view.components.menuItem.SelectImageMenuItem;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

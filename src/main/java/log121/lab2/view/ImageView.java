@@ -1,8 +1,9 @@
 package log121.lab2.view;
 
-import log121.lab2.controller.Command;
-import log121.lab2.controller.CommandManager;
+import log121.lab2.controller.commands.Command;
+import log121.lab2.controller.commands.CommandManager;
 import log121.lab2.controller.ViewState;
+import log121.lab2.view.components.label.ImageLabel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

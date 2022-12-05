@@ -1,4 +1,4 @@
-package log121.lab2.view;
+package log121.lab2.view.components.handler;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

@@ -1,4 +1,4 @@
-package log121.lab2.view;
+package log121.lab2.view.components.listener;
 
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;

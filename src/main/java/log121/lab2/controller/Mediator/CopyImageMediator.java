@@ -1,5 +1,6 @@
-package log121.lab2.controller;
+package log121.lab2.controller.Mediator;
 
+import log121.lab2.controller.ModificationController;
 import log121.lab2.controller.strategy.copy.CopyAllStrategy;
 import log121.lab2.controller.strategy.copy.ICopyStrategy;
 import log121.lab2.controller.strategy.copy.PositionCopyStategy;

@@ -1,10 +1,10 @@
-package log121.lab2.view;
+package log121.lab2.view.components.menuItem;
 
-import log121.lab2.controller.Command;
-import log121.lab2.controller.CommandManager;
-import log121.lab2.controller.LoadImageCommand;
+import log121.lab2.controller.commands.Command;
+import log121.lab2.controller.commands.CommandManager;
 import log121.lab2.controller.MainController;
-import log121.lab2.service.JSONReader;
+import log121.lab2.controller.commands.SaveImageCommand;
+import log121.lab2.view.View;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,28 +12,28 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoadImageMenuItem extends JMenuItem implements View {
+public class SaveImageMenuItem extends JMenuItem implements View {
 
     private final Color unselected;
     private final Color selected;
     private List<Command> commands;
-
-    public LoadImageMenuItem(String title,MainController mainController){
+    public SaveImageMenuItem(String title, MainController mainController){
         unselected = getBackground();
         selected = Color.gray;
 
         setText(title);
-        LoadImageCommand loadImageCommand = new LoadImageCommand(mainController);
+        SaveImageCommand saveImageCommand = new SaveImageCommand(mainController);
         addActionListener((ActionEvent e) ->
         {
-            loadImageCommand.setCondition(true);
+            saveImageCommand.setCondition(true);
         });
 
         commands = new ArrayList<>();
 
-        commands.add(loadImageCommand);
+        commands.add(saveImageCommand);
 
         activate();
+
     }
 
     public void select()
@@ -65,4 +65,5 @@ public class LoadImageMenuItem extends JMenuItem implements View {
     {
         CommandManager.getInstance().detachCommand(this);
     }
+
 }

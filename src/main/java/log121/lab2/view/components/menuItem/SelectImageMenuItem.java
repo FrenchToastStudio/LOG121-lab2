@@ -1,11 +1,10 @@
-package log121.lab2.view;
+package log121.lab2.view.components.menuItem;
 
-import log121.lab2.controller.Command;
-import log121.lab2.controller.CommandManager;
+import log121.lab2.controller.commands.Command;
+import log121.lab2.controller.commands.CommandManager;
 import log121.lab2.controller.MainController;
-import log121.lab2.controller.SaveImageCommand;
-import log121.lab2.model.Store;
-import log121.lab2.service.SaveState;
+import log121.lab2.controller.commands.SelectViewCommand;
+import log121.lab2.view.View;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,38 +12,48 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SaveImageMenuItem extends JMenuItem implements View{
+public class SelectImageMenuItem extends JMenuItem implements View {
 
+    private int id;
     private final Color unselected;
     private final Color selected;
+
     private List<Command> commands;
-    public SaveImageMenuItem(String title, MainController mainController){
+    public SelectImageMenuItem(String title, int id,MainController mainController)
+    {
         unselected = getBackground();
         selected = Color.gray;
 
+        this.id = id;
         setText(title);
-        SaveImageCommand saveImageCommand = new SaveImageCommand(mainController);
+        SelectViewCommand selectViewCommand = new SelectViewCommand(mainController, id);
         addActionListener((ActionEvent e) ->
         {
-            saveImageCommand.setCondition(true);
+            selectViewCommand.setCondition(true);
         });
+
+
 
         commands = new ArrayList<>();
 
-        commands.add(saveImageCommand);
+        commands.add(selectViewCommand);
 
         activate();
-
     }
 
     public void select()
     {
         setBackground(selected);
+        Color color = getBackground();
     }
 
     public void unSelect()
     {
         setBackground(unselected);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void activate()
@@ -66,5 +75,4 @@ public class SaveImageMenuItem extends JMenuItem implements View{
     {
         CommandManager.getInstance().detachCommand(this);
     }
-
 }

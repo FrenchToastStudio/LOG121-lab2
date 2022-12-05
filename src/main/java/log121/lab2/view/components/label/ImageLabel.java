@@ -1,4 +1,4 @@
-package log121.lab2.view;
+package log121.lab2.view.components.label;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,6 +42,8 @@ public class ImageLabel extends JLabel {
             this.height = image.getHeight();
             this.width = image.getWidth();
         }
+
+        //IconAnimator iconAnimator = new IconAnimator(this, getIcon(), 250)l
         resizeImage();
     }
 

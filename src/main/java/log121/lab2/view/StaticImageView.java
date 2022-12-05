@@ -1,12 +1,7 @@
 package log121.lab2.view;
 
-import log121.lab2.controller.Command;
+import log121.lab2.controller.commands.Command;
 
-import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 

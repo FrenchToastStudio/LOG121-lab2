@@ -1,9 +1,9 @@
-package log121.lab2.controller;
+package log121.lab2.controller.commands;
 
-import log121.lab2.service.JSONWriter;
-import log121.lab2.service.SaveState;
+import log121.lab2.controller.MainController;
+import log121.lab2.controller.commands.Command;
 
-public class SaveImageCommand extends Command{
+public class SaveImageCommand extends Command {
     private MainController mainController;
 
     private boolean hasToExecute;

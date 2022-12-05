@@ -1,6 +1,9 @@
 package log121.lab2.view;
 
 import log121.lab2.controller.MainController;
+import log121.lab2.view.components.menuItem.LoadImageFromImageFileItem;
+import log121.lab2.view.components.menuItem.LoadImageMenuItem;
+import log121.lab2.view.components.menuItem.SaveImageMenuItem;
 import log121.lab2.view.copyStrategyViews.CopyStrategyMenuItem;
 
 import javax.swing.*;

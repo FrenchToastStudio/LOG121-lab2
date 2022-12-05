@@ -1,9 +1,6 @@
 package log121.lab2.controller.commands;
 
-import log121.lab2.controller.Command;
-import log121.lab2.controller.CopyImageMediator;
-import log121.lab2.controller.MainController;
-import log121.lab2.controller.strategy.copy.ICopyStrategy;
+import log121.lab2.controller.Mediator.CopyImageMediator;
 import log121.lab2.view.copyStrategyViews.CopyStrategyEnum;
 
 public class ChooseCopyStrategyCommand extends Command {

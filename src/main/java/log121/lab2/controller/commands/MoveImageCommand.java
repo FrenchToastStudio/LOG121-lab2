@@ -1,8 +1,10 @@
-package log121.lab2.controller;
+package log121.lab2.controller.commands;
 
+import log121.lab2.controller.ModificationController;
+import log121.lab2.controller.commands.Command;
 import log121.lab2.model.Position;
 
-public class MoveImageCommand extends Command{
+public class MoveImageCommand extends Command {
     private ModificationController modificationController;
     private boolean hasToExecute;
 

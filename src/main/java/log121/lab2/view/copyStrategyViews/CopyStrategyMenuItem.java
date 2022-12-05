@@ -1,7 +1,7 @@
 package log121.lab2.view.copyStrategyViews;
 
-import log121.lab2.controller.Command;
-import log121.lab2.controller.CommandManager;
+import log121.lab2.controller.commands.Command;
+import log121.lab2.controller.commands.CommandManager;
 import log121.lab2.controller.MainController;
 import log121.lab2.controller.commands.ChooseCopyStrategyCommand;
 import log121.lab2.view.View;

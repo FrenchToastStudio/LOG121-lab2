@@ -1,11 +1,10 @@
 package log121.lab2.view;
 
 import log121.lab2.controller.*;
-import log121.lab2.controller.commands.CopyCommand;
-import log121.lab2.controller.commands.PasteCommand;
-import log121.lab2.controller.commands.StopTranslateCommand;
-import log121.lab2.controller.commands.StopZoomCommand;
+import log121.lab2.controller.commands.*;
 import log121.lab2.model.Position;
+import log121.lab2.view.components.listener.CustomMouseWheelListener;
+import log121.lab2.view.components.handler.InputHandler;
 
 import java.awt.*;
 import java.awt.event.*;

@@ -1,7 +1,6 @@
 package log121.lab2.controller.commands;
 
-import log121.lab2.controller.Command;
-import log121.lab2.controller.CopyImageMediator;
+import log121.lab2.controller.Mediator.CopyImageMediator;
 import log121.lab2.controller.ModificationController;
 
 public class PasteCommand extends Command {

@@ -1,7 +1,10 @@
-package log121.lab2.controller;
+package log121.lab2.controller.commands;
 
 
-public class LoadImageCommand extends Command{
+import log121.lab2.controller.MainController;
+import log121.lab2.controller.commands.Command;
+
+public class LoadImageCommand extends Command {
 
     private boolean hasToExecute;
 

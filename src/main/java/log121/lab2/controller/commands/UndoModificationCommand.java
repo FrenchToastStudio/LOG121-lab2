@@ -1,6 +1,7 @@
-package log121.lab2.controller;
+package log121.lab2.controller.commands;
 
-import log121.lab2.model.Perspective;
+import log121.lab2.controller.ModificationController;
+import log121.lab2.controller.commands.Command;
 
 public class UndoModificationCommand extends Command {
     private ModificationController modificationController;

@@ -1,4 +1,4 @@
-package log121.lab2.controller;
+package log121.lab2.controller.commands;
 
 import log121.lab2.view.View;
 

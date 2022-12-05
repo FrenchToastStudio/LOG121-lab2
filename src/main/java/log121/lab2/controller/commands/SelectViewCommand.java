@@ -1,6 +1,9 @@
-package log121.lab2.controller;
+package log121.lab2.controller.commands;
 
-public class SelectViewCommand extends Command{
+import log121.lab2.controller.MainController;
+import log121.lab2.controller.commands.Command;
+
+public class SelectViewCommand extends Command {
 
     private MainController mainController;
     private int viewId;

@@ -1,15 +1,15 @@
 package log121.lab2.controller;
 
+import log121.lab2.controller.Mediator.CopyImageMediator;
+import log121.lab2.controller.Memento.PerspectiveMomento;
 import log121.lab2.model.Perspective;
 import log121.lab2.model.Position;
 import log121.lab2.model.Store;
 import log121.lab2.view.ImageView;
 import log121.lab2.view.ModificationImageView;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 public class ModificationController extends ImageController{
     private Perspective perspective;
