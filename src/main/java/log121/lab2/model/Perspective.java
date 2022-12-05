@@ -1,5 +1,7 @@
 package log121.lab2.model;
 
+import log121.lab2.view.Observer;
+
 public class Perspective extends Subject {
 
     private Position position;
@@ -37,6 +39,13 @@ public class Perspective extends Subject {
         return height;
     }
 
+    public void setSize(int width, int height)
+    {
+        this.width = width;
+        this.height =height;
+        notifyObserverSizeChanged(this.height, this.width);
+    }
+
     public Perspective setHeight(int height) {
         this.height = height;
         return this;
@@ -55,6 +64,9 @@ public class Perspective extends Subject {
         this.position = position;
         notifyObserversPositionChanged(position.getX(),position.getY());
         return this;
+    }
+    public Perspective setPosition(int x, int y) {
+        return setPosition(new Position(x, y));
     }
 
     public void setZoom(int zoom) {
@@ -83,12 +95,18 @@ public class Perspective extends Subject {
         else
             this.height = scaledHeight;
 
-        notifyObserverZoomChanged(this.height, this.width);
+        notifyObserverSizeChanged(this.height, this.width);
+    }
+
+    @Override
+    public void attach(Observer observer) {
+        super.attach(observer);
+        notifyObserverObjectChanged();
     }
 
     public void notifyObserverObjectChanged()
     {
-        notifyObserverZoomChanged(getHeight(), getWidth());
+        notifyObserverSizeChanged(getHeight(), getWidth());
         notifyObserversPositionChanged(getX(), getY());
     }
 }

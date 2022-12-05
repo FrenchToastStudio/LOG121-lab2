@@ -17,9 +17,6 @@ public class ImageController {
 
     }
 
-    public void loadImage(){
-    }
-
     public void setView(ImageView imageView)
     {
         this.view = imageView;

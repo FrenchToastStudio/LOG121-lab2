@@ -21,21 +21,11 @@ public class StaticImageView extends ImageView {
         activate();
     }
 
-    public StaticImageView(Color bg)
-    {
-        this();
-        this.setBackground(bg);
-    }
-
     public void showImage(String imagePath)
     {
         this.posX = this.getWidth();
         this.posY = this.getHeight();
         super.showImage(imagePath, this.getWidth()/2, this.getHeight()/2, zoom);
-    }
-
-    public StaticImageView(List<Command> commands) {
-        super(commands);
     }
 
     @Override

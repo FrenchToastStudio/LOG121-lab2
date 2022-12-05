@@ -1,6 +1,5 @@
 package log121.lab2.controller;
 
-import log121.lab2.service.JSONReader;
 
 public class LoadImageCommand extends Command{
 

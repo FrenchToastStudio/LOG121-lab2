@@ -2,6 +2,7 @@ package log121.lab2.model;
 
 import log121.lab2.view.Observer;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class Subject {
@@ -28,9 +29,9 @@ public abstract class Subject {
         }
     }
 
-    public void notifyObserversPathChanged(String path){
+    public void notifyObserversPathChanged(BufferedImage bufferedImage){
         for (Observer o : observers){
-            o.updatePath(path);
+            o.updateImage(bufferedImage);
         }
     }
 
@@ -40,7 +41,7 @@ public abstract class Subject {
         }
     }
 
-    public void notifyObserverZoomChanged(int height, int width){
+    public void notifyObserverSizeChanged(int height, int width){
         for (Observer o : observers){
             o.updateZoom(height, width);
         }

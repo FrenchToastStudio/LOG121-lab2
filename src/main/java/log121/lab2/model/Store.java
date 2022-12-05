@@ -35,7 +35,7 @@ public class Store {
     public void setImage(Image image) {
         this.image = image;
         this.image.notifyObserversPathChanged();
-        if(this.perspectives != null)
+        if (this.perspectives != null)
             image.setPerspective(this.perspectives);
     }
 

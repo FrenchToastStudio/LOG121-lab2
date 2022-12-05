@@ -21,9 +21,9 @@ public class ModificationImageView extends ImageView{
 
     ModificationController modificationController;
 
-    public ModificationImageView() {
+    public ModificationImageView(int width, int height) {
         super(new ArrayList<Command>() {});
-        this.modificationController = new ModificationController(this);
+        this.modificationController = new ModificationController(this, width, height);
         viewSetUp();
     }
 
@@ -173,17 +173,9 @@ public class ModificationImageView extends ImageView{
         return new Position(newPositionX,newPositionY);
     }
 
-    public void showImage(String imagePath) {
-        super.showImage(imagePath, xPosition, yPosition, zoom);
-    }
-
     public void updateImagePos(int x, int y) {
     this.xPosition = x;
     this.yPosition = y;
     }
 
-    @Override
-    public void updatePath(String string) {
-        this.showImage(string);
-    }
 }

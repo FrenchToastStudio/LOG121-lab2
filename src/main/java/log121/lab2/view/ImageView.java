@@ -18,6 +18,9 @@ public abstract class ImageView extends JPanel implements View, Observer{
     private ImageLabel imageLabel;
     protected String imagePath;
 
+    protected int maxWidth;
+    protected int maxHeight;
+
     public ImageView(List<Command> commands) {
 
         if(commands == null)
@@ -25,20 +28,16 @@ public abstract class ImageView extends JPanel implements View, Observer{
             commands = new ArrayList<>();
         }
         this.commands = commands;
-        imageLabel = new ImageLabel();
+        imageLabel = new ImageLabel(getWidth(), getHeight());
         setLayout(null);
         add(imageLabel);
     }
-    /**
-     * Show an image from a path, Have perspective to 1 by defauly
-     * @param imagePath
-     * @param x
-     * @param y
-     */
-    public void showImage(String imagePath, int x, int y)
+
+    public void setSize(int width, int height)
     {
-        showImage(imagePath, x, y, 1);
+        imageLabel.setMax(width, height);
     }
+
     /**
      * Show an image from a path, Have perspective to 1 by defauly
      * @param imagePath
@@ -76,12 +75,18 @@ public abstract class ImageView extends JPanel implements View, Observer{
 
     public void updatePath(String string)
     {
-        this.imagePath = string;
     }
 
     @Override
     public void update() {
 
+    }
+
+    @Override
+    public void updateImage(BufferedImage image) {
+        if(image != null) {
+            imageLabel.setImageIcon(image);
+        }
     }
 
     public void activate()
@@ -113,6 +118,11 @@ public abstract class ImageView extends JPanel implements View, Observer{
 
     public ImageLabel getImageLabel(){
         return imageLabel;
+    }
+
+    public void setMaxSize(int width, int height)
+    {
+        imageLabel.setMax(width, height);
     }
 
 }

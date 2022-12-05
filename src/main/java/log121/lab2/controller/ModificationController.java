@@ -6,6 +6,7 @@ import log121.lab2.model.Store;
 import log121.lab2.view.ImageView;
 import log121.lab2.view.ModificationImageView;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -15,20 +16,21 @@ public class ModificationController extends ImageController{
     private List<PerspectiveMomento> perspectiveMomentos;
     private int pointer = -1;
 
-    public ModificationController(ImageView imageView) {
+    public ModificationController(ImageView imageView, int width, int height) {
         super(imageView);
         this.perspective = new Perspective();
-        this.perspectiveMomentos = new ArrayList<>();
-
         perspective.attach(imageView);
+        this.perspective.setPosition(width/2, height/2);
+        this.perspectiveMomentos = new ArrayList<>();
         Store.getInstance().addPerspective(perspective);
         addMomento();
     }
-
     public ModificationController(Perspective perspective)
     {
         super();
         this.perspective = perspective;
+        this.perspectiveMomentos = new ArrayList<>();
+        addMomento();
     }
 
     private void addMomento(){

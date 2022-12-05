@@ -6,20 +6,22 @@ import log121.lab2.model.Store;
 import log121.lab2.service.JSONReader;
 import log121.lab2.service.JSONWriter;
 import log121.lab2.service.SaveState;
-import log121.lab2.view.MainView;
+import log121.lab2.view.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainController {
-    private final MainView mainView;
-    private final CopyImageMediator copyImageMediator;
+
+    private static final int NUMBER_OF_MODIFICATION_VIEW = 2;
+    private MainView mainView;
+    private Image image;
     public MainController(MainView mainView)
     {
         this.mainView = mainView;
-        Image img = new Image();
-        setImage(img);
-        img.setPath("src/main/resources/log121/lab2/Image/IMG_0661.jpg");
-        copyImageMediator = new CopyImageMediator();
+        this.image = new Image();
+        setImage(image);
+        image.setPath("src/main/resources/log121/lab2/Image/IMG_0661.jpg");
     }
 
     public void changeView(int viewId)
@@ -47,9 +49,9 @@ public class MainController {
 
     private void setImage(Image image)
     {
-        this.mainView.attach(image);
         Store.getInstance().setImage(image);
     }
+
     private void setPerspective(List<Perspective> perspectives)
     {
         mainView.setImageViews(
@@ -60,4 +62,26 @@ public class MainController {
     {
         return new ModificationController(perspective);
     }
+    public void resetViews()
+    {
+
+        List<ModificationController> modificationControllers = new ArrayList<>();
+        for(int i =0; i <= NUMBER_OF_MODIFICATION_VIEW; i++)
+        {
+            modificationControllers.add(createNewModificationController());
+        }
+        mainView.setImageViews(modificationControllers);
+        mainView.attachViewsToSubject(image);
+    }
+    private ModificationController createNewModificationController()
+    {
+        Perspective perspective = new Perspective();
+        image.addPerspective(perspective);
+        perspective.setSize(this.mainView.getWidth(), this.mainView.getHeight());
+        perspective.setPosition(this.mainView.getWidth()/2, this.mainView.getHeight()/2);
+        perspective.setPosition(this.mainView.getWidth()/2, this.mainView.getHeight()/2);
+        return new ModificationController(perspective);
+    }
+
+
 }

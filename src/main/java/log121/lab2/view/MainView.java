@@ -7,6 +7,7 @@ import log121.lab2.model.Subject;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.dnd.MouseDragGestureRecognizer;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,6 @@ public class MainView extends JFrame implements Observer{
     private static final long serialVersionUID = 1L;
     private static final String TITRE_FENETRE = "Laboratoire 2 LOG121";
     private static final Dimension DIMENSION = new Dimension(700, 700);
-
     private List<ImageView> imageViews;
     private ImageView activeImageView;
     SelectViewMenuBar selectViewMenuBar;
@@ -23,20 +23,6 @@ public class MainView extends JFrame implements Observer{
     {
 
         imageViews = new ArrayList<ImageView>();
-
-        imageViews.add(new StaticImageView());
-        imageViews.add(new ModificationImageView());
-        imageViews.add(new ModificationImageView());
-
-        MainController mainController = new MainController(this);
-
-        OptionView optionView = new OptionView(mainController);
-
-        this.selectViewMenuBar = new SelectViewMenuBar(mainController,imageViews);
-
-        setJMenuBar(optionView);
-
-        add(selectViewMenuBar, BorderLayout.NORTH);
 
         //region JFrame Option
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -47,17 +33,43 @@ public class MainView extends JFrame implements Observer{
         setResizable(false);
         //endregion
 
-        //THE DEFAULT IMAGE TO SHOW. ALWAYS THE FIRST ONE IN THE LIST
-        ChangeImageView(0);
+        validate();
+        MainController mainController = new MainController(this);
+
+        OptionView optionView = new OptionView(mainController);
+        this.selectViewMenuBar = new SelectViewMenuBar(mainController);
+
+        mainController.resetViews();
+
+        setJMenuBar(optionView);
+
 
     }
+
     public void setImageViews(List<ModificationController> controllers)
     {
-        imageViews = new ArrayList<>();
-        imageViews.add(new StaticImageView());
-        imageViews.addAll(controllers.stream().map(ModificationImageView::new).toList());
-        imageViews.forEach(this::add);
+        remove(selectViewMenuBar);
+
+        int width = getWidth();
+        int height = getHeight();
+
+        this.imageViews = new ArrayList<>();
+        this.imageViews.add(new StaticImageView());
+        this.imageViews.addAll(controllers.stream().map(ModificationImageView::new).toList());
+        this.imageViews.forEach(imageView ->
+        {
+            imageView.setMaxSize(width, height);
+            this.add(imageView);
+        });
+        selectViewMenuBar.setTabs(this.imageViews);
+
+        add(selectViewMenuBar, BorderLayout.NORTH);
         ChangeImageView(0);
+    }
+
+    public void attachViewsToSubject(Subject subject)
+    {
+        this.imageViews.forEach(subject::attach);
     }
     public void ChangeImageView(int id)
     {
@@ -69,9 +81,12 @@ public class MainView extends JFrame implements Observer{
         activeImageView = imageViews.get(id);
         getContentPane().add(activeImageView);
         selectViewMenuBar.select(id);
+        getContentPane().revalidate();
+        getContentPane().repaint();
+        activeImageView.resume();
+
         revalidate();
         repaint();
-        activeImageView.resume();
     }
 
 
@@ -91,15 +106,8 @@ public class MainView extends JFrame implements Observer{
     }
 
     @Override
-    public void updatePath(String string) {
+    public void updateImage(BufferedImage image) {
 
-    }
-
-    public void attach(Subject subject)
-    {
-        for(ImageView v : imageViews) {
-            subject.attach(v);
-        }
     }
 
 

@@ -45,6 +45,7 @@ public class SelectImageMenuItem extends JMenuItem implements View{
     public void select()
     {
         setBackground(selected);
+        Color color = getBackground();
     }
 
     public void unSelect()
