@@ -87,6 +87,7 @@ public abstract class ImageView extends JPanel implements View, Observer{
     public void activate()
     {
         CommandManager.getInstance().attachCommand(this, commands);
+        setFocusable(true);
     }
 
     public void pause()
@@ -97,6 +98,7 @@ public abstract class ImageView extends JPanel implements View, Observer{
     public void resume()
     {
         CommandManager.getInstance().attachCommand(this, commands);
+        setFocusable(true);
     }
 
     public void destroy()

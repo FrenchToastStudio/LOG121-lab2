@@ -3,7 +3,6 @@ package log121.lab2.controller;
 import log121.lab2.model.Perspective;
 import log121.lab2.model.Position;
 import log121.lab2.model.Store;
-import log121.lab2.model.Subject;
 import log121.lab2.view.ImageView;
 import log121.lab2.view.ModificationImageView;
 
@@ -83,5 +82,24 @@ public class ModificationController extends ImageController{
 
     private void setMomento(PerspectiveMomento m){
         this.perspective = m.getPerspective();
+    }
+
+    public void copy() {
+        CopyImageMediator.getInstance().copy(this.perspective);
+    }
+    public void paste(Position position, int width, int height)
+    {
+        this.perspective.setPosition(position);
+        this.perspective.setWidth(width);
+        this.perspective.setHeight(height);
+    }
+    public void paste(Position position)
+    {
+        this.perspective.setPosition(position);
+    }
+    public void paste(int width, int height)
+    {
+        this.perspective.setWidth(width);
+        this.perspective.setHeight(height);
     }
 }

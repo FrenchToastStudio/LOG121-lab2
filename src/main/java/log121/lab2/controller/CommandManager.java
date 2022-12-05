@@ -2,7 +2,9 @@ package log121.lab2.controller;
 
 import log121.lab2.view.View;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class CommandManager {
     private static CommandManager instance;
