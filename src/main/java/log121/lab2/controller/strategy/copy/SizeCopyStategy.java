@@ -17,6 +17,8 @@ public class SizeCopyStategy implements ICopyStrategy {
 
     @Override
     public void paste(ModificationController controller) {
-        controller.paste(width, height);
+        if(controller != null) {
+            controller.paste(width, height);
+        }
     }
 }

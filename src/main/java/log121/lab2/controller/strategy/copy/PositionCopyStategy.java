@@ -16,6 +16,9 @@ public class PositionCopyStategy implements ICopyStrategy {
 
     @Override
     public void paste(ModificationController controller) {
-        controller.paste(position);
+        if(position != null)
+        {
+            controller.paste(position);
+        }
     }
 }

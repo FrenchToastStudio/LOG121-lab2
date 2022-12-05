@@ -3,6 +3,7 @@ package log121.lab2.controller;
 import log121.lab2.model.Image;
 import log121.lab2.model.Perspective;
 import log121.lab2.model.Store;
+import log121.lab2.service.ImagePicker;
 import log121.lab2.service.JSONReader;
 import log121.lab2.service.JSONWriter;
 import log121.lab2.service.SaveState;
@@ -84,11 +85,20 @@ public class MainController {
     {
         Perspective perspective = new Perspective();
         image.addPerspective(perspective);
-        perspective.setSize(this.mainView.getWidth(), this.mainView.getHeight());
         perspective.setPosition(this.mainView.getWidth()/2, this.mainView.getHeight()/2);
         perspective.setPosition(this.mainView.getWidth()/2, this.mainView.getHeight()/2);
         return new ModificationController(perspective);
     }
 
 
+    public void changeImage()
+    {
+        ImagePicker imagePicker = new ImagePicker();
+        var newPath = imagePicker.pickImage();
+        if(newPath.trim().isEmpty())
+        {
+            return;
+        }
+        Store.getInstance().getImage().setPath(newPath);
+    }
 }

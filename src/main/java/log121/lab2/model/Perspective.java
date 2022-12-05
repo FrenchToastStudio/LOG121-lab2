@@ -72,31 +72,36 @@ public class Perspective extends Subject {
 
     public void setZoom(int zoom) {
 
-        if(this.width <= minSize && this.height <= minSize && zoom <0)
-            return;
+        if(zoom != 0) {
+            boolean isWidthBiggetThenHeight = width > height;
+            int ratio = isWidthBiggetThenHeight ? width/height : height/width;
 
-        this.zoom = zoom;
-        double zoomWithScaling = zoom*scaleZoomBoost;
+            if (this.width <= minSize && this.height <= minSize && zoom < 0)
+                return;
 
-        int zoomWithScalingInt = (int) zoomWithScaling;
+            this.zoom = zoom;
+            double zoomWithScaling = zoom * scaleZoomBoost;
+            int zoomWithScalingInt = (int) zoomWithScaling;
 
-        int scaledWidth  = width;
-        scaledWidth += zoomWithScalingInt;
+            int scaledWidth = getWidth();
+            scaledWidth += zoomWithScalingInt;
 
-        if(scaledWidth <= minSize)
-            width = minSize;
-        else
-            width = scaledWidth;
+            if (scaledWidth <= minSize)
+                width = minSize;
+            else
+                width = scaledWidth;
 
-        int scaledHeight = width - zoomWithScalingInt;
-        scaledHeight +=  zoomWithScalingInt;
+            int scaledHeight = getHeight();
+            scaledHeight += zoomWithScalingInt;
 
-        if(scaledHeight <= minSize)
-            this.height = minSize;
-        else
-            this.height = scaledHeight;
+            if (scaledHeight <= minSize)
+                this.height = minSize;
+            else
+                this.height = scaledHeight;
 
-        notifyObserverSizeChanged(this.height, this.width);
+
+            setSize(width, height);
+        }
     }
 
     @Override

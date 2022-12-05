@@ -19,6 +19,8 @@ public class CopyAllStrategy implements ICopyStrategy{
 
     @Override
     public void paste(ModificationController controller) {
-        controller.paste(position, width, height);
+        if(position != null ) {
+            controller.paste(position, width, height);
+        }
     }
 }
