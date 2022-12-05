@@ -4,21 +4,16 @@ import log121.lab2.model.Perspective;
 
 public class UndoModificationCommand extends Command {
     private ModificationController modificationController;
-    private final Perspective perspective;
-    private final PerspectiveMomento momento;
-    private boolean hasToExecute;
+    private boolean needExectuion;
 
-
-    public UndoModificationCommand(PerspectiveMomento momento, Perspective perspective){
-        this.momento = momento;
-        this.perspective = perspective;
+    public UndoModificationCommand(ModificationController modificationController){
+        this.modificationController = modificationController;
     }
 
     @Override
     public void execute() {
-        momento.setPerspective(perspective);
-        if(hasToExecute)
-            hasToExecute = false;
+        modificationController.undo();
+        needExectuion = false;
     }
 
     @Override
@@ -27,6 +22,8 @@ public class UndoModificationCommand extends Command {
 
     @Override
     public boolean isConditionMet() {
-        return hasToExecute;
+        return needExectuion;
     }
+
+    public void toggle(){needExectuion = true;}
 }

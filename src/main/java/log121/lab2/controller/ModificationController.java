@@ -6,16 +6,20 @@ import log121.lab2.model.Store;
 import log121.lab2.view.ImageView;
 import log121.lab2.view.ModificationImageView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class ModificationController extends ImageController{
     private Perspective perspective;
-    private int undoRedoPointer = -1;
-    private final Stack<Command> commandStack = new Stack<>();
+    private List<PerspectiveMomento> perspectiveMomentos;
+    private int pointer = -1;
 
     public ModificationController(ImageView imageView) {
         super(imageView);
         this.perspective = new Perspective();
+        this.perspectiveMomentos = new ArrayList<>();
+
         perspective.attach(imageView);
         Store.getInstance().addPerspective(perspective);
     }
@@ -26,6 +30,15 @@ public class ModificationController extends ImageController{
         this.perspective = perspective;
     }
 
+    private void addMomento(){
+        if (pointer>=0) {
+            perspectiveMomentos = perspectiveMomentos.subList(0, pointer);
+        }
+        PerspectiveMomento memento = new PerspectiveMomento(this.perspective);
+        perspectiveMomentos.add(memento);
+        pointer = perspectiveMomentos.size()-1;
+
+    }
     public void setView(ModificationImageView modificationImageView)
     {
         super.setView(modificationImageView);
@@ -36,52 +49,34 @@ public class ModificationController extends ImageController{
         this.perspective.setPosition(position);
     }
 
+    public void stopTranslate(){
+        addMomento();
+    }
+
     public void zoom(int zoom){
         this.perspective.setZoom(-zoom);
+        addMomento();
     }
 
-    private void insertCommand()
+    public void undo()
     {
-        deleteElementsAfterPointer(undoRedoPointer);
-        PerspectiveMomento m = createMomento();
-        Command command = new UndoModificationCommand(m, m.getPerspective());
-        command.execute();
-        commandStack.push(command);
-        undoRedoPointer++;
-    }
+        if (pointer>0) {
+            pointer--;
+            PerspectiveMomento momento = perspectiveMomentos.get(pointer);
+            momento.setPerspectiveToState(this.perspective);
 
-    private void deleteElementsAfterPointer(int undoRedoPointer)
-    {
-        if (commandStack.size()<1)return;
-        if (commandStack.size() > undoRedoPointer + 1) {
-            commandStack.subList(undoRedoPointer + 1, commandStack.size()).clear();
         }
+        addMomento();
     }
 
-    private void undo()
+    public void redo()
     {
-        Command command = commandStack.get(undoRedoPointer);
-        command.unExecute();
-        undoRedoPointer--;
-    }
-
-    private void redo()
-    {
-        if(undoRedoPointer == commandStack.size() - 1)
-            return;
-        undoRedoPointer++;
-        Command command = commandStack.get(undoRedoPointer);
-        command.execute();
-    }
-
-    private PerspectiveMomento createMomento(){
-        PerspectiveMomento m = new PerspectiveMomento();
-        m.setPerspective(this.perspective);
-        return m;
-    }
-
-    private void setMomento(PerspectiveMomento m){
-        this.perspective = m.getPerspective();
+        if (pointer<perspectiveMomentos.size()-1){
+            pointer++;
+            PerspectiveMomento momento = perspectiveMomentos.get(pointer);
+            momento.setPerspectiveToState(this.perspective);
+        }
+        addMomento();
     }
 
     public void copy() {

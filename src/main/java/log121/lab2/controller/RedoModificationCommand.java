@@ -4,21 +4,17 @@ import log121.lab2.model.Perspective;
 
 public class RedoModificationCommand extends Command{
 
-    private final PerspectiveMomento momento;
     private ModificationController modificationController;
-    private Perspective perspective;
     private boolean hasToExecute;
 
-    public RedoModificationCommand(PerspectiveMomento momento, ModificationController modificationController){
-        this.momento = momento;
+    public RedoModificationCommand(ModificationController modificationController){
         this.modificationController = modificationController;
     }
 
     @Override
     public void execute() {
-        this.perspective = momento.getPerspective();
-        if(hasToExecute)
-            hasToExecute = false;
+        modificationController.redo();
+        hasToExecute = false;
     }
 
     @Override
@@ -30,4 +26,6 @@ public class RedoModificationCommand extends Command{
     public boolean isConditionMet() {
         return hasToExecute;
     }
+
+    public void toggle(){hasToExecute = true;}
 }

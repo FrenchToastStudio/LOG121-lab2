@@ -3,6 +3,7 @@ package log121.lab2.view;
 import log121.lab2.controller.*;
 import log121.lab2.controller.commands.CopyCommand;
 import log121.lab2.controller.commands.PasteCommand;
+import log121.lab2.controller.commands.StopTranslateCommand;
 import log121.lab2.model.Position;
 import log121.lab2.model.Subject;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class ModificationImageView extends ImageView{
 
+    private boolean isDragging;
     private int xPosition, yPosition, zoom;
     private double scalingFactor = 1.2;
     ModificationController modificationController;
@@ -40,11 +42,16 @@ public class ModificationImageView extends ImageView{
         ZoomImageCommand zoomImageCommand = new ZoomImageCommand(modificationController);
         CopyCommand copyCommand = new CopyCommand(modificationController);
         PasteCommand pasteCommand = new PasteCommand();
+        UndoModificationCommand undoModificationCommand = new UndoModificationCommand(modificationController);
+        RedoModificationCommand redoModificationCommand = new RedoModificationCommand(modificationController);
+        StopTranslateCommand stopTranslateCommand = new StopTranslateCommand(modificationController);
 
         addCommand(moveImageCommand);
         addCommand(zoomImageCommand);
         addCommand(copyCommand);
         addCommand(pasteCommand);
+        addCommand(undoModificationCommand);
+        addCommand(redoModificationCommand);
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -55,13 +62,23 @@ public class ModificationImageView extends ImageView{
                 System.out.println("clicked at"+dx + " "+dy);
                 System.out.println(isMouseOnImage(e.getPoint()));
             }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                if (isDragging) {
+                    stopTranslateCommand.toggle();
+                    isDragging = false;
+                }
+            }
         });
+
 
         super.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 requestFocusInWindow();
-
+                isDragging = true;
                 if(isMouseOnImage(e.getPoint())){
                     moveImageCommand.moveToPosition(new Position(e.getX(),e.getY()));
                 }
@@ -86,6 +103,16 @@ public class ModificationImageView extends ImageView{
         pasteKeyList.add(KeyEvent.VK_CONTROL);
         pasteKeyList.add(KeyEvent.VK_V);
 
+        Set<Integer> undoKeyList = new HashSet<>();
+        undoKeyList.add(KeyEvent.VK_CONTROL);
+        undoKeyList.add(KeyEvent.VK_Z);
+
+        Set<Integer> redoKeyList = new HashSet<>();
+        redoKeyList.add(KeyEvent.VK_CONTROL);
+        redoKeyList.add(KeyEvent.VK_Z);
+        redoKeyList.add(KeyEvent.VK_SHIFT);
+
+
         inputHandler.addEvent(copyKeyList, (KeyEvent) ->
         {
             copyCommand.toggle();
@@ -94,6 +121,15 @@ public class ModificationImageView extends ImageView{
         {
             pasteCommand.toggle();
         });
+        inputHandler.addEvent(undoKeyList, (KeyEvent) ->
+        {
+            undoModificationCommand.toggle();
+        });
+        inputHandler.addEvent(redoKeyList, (KeyEvent) ->
+        {
+            redoModificationCommand.toggle();
+        });
+
 
         activate();
     }
