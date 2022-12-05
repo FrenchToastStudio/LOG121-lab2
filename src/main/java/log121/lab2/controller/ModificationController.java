@@ -22,6 +22,7 @@ public class ModificationController extends ImageController{
 
         perspective.attach(imageView);
         Store.getInstance().addPerspective(perspective);
+        addMomento();
     }
 
     public ModificationController(Perspective perspective)
@@ -31,8 +32,8 @@ public class ModificationController extends ImageController{
     }
 
     private void addMomento(){
-        if (pointer>=0) {
-            perspectiveMomentos = perspectiveMomentos.subList(0, pointer);
+        if (pointer>0) {
+            perspectiveMomentos = perspectiveMomentos.subList(0, pointer+1);
         }
         PerspectiveMomento memento = new PerspectiveMomento(this.perspective);
         perspectiveMomentos.add(memento);
@@ -60,13 +61,11 @@ public class ModificationController extends ImageController{
 
     public void undo()
     {
-        if (pointer>0) {
+        if (pointer>=0) {
             pointer--;
             PerspectiveMomento momento = perspectiveMomentos.get(pointer);
             momento.setPerspectiveToState(this.perspective);
-
         }
-        addMomento();
     }
 
     public void redo()
@@ -76,7 +75,6 @@ public class ModificationController extends ImageController{
             PerspectiveMomento momento = perspectiveMomentos.get(pointer);
             momento.setPerspectiveToState(this.perspective);
         }
-        addMomento();
     }
 
     public void copy() {

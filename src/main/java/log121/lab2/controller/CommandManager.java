@@ -32,8 +32,6 @@ public class CommandManager {
         this.commands.stream()
                 .filter(Command::isConditionMet)
                 .forEach(Command::execute);
-
-
     }
 
     public void attachCommand(View view, List<Command> commands) {

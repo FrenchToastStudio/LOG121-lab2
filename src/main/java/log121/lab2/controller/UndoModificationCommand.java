@@ -25,5 +25,8 @@ public class UndoModificationCommand extends Command {
         return needExectuion;
     }
 
-    public void toggle(){needExectuion = true;}
+    public void toggle()
+    {
+        needExectuion = true;
+    }
 }

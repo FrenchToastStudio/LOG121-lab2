@@ -1,7 +1,6 @@
 package log121.lab2.view.copyStrategyViews;
 
 import log121.lab2.controller.MainController;
-import log121.lab2.controller.commands.ChooseCopyStrategyCommand;
 import log121.lab2.view.basicView.CustomRadioButton;
 
 import javax.swing.*;

@@ -52,6 +52,7 @@ public class ModificationImageView extends ImageView{
         addCommand(pasteCommand);
         addCommand(undoModificationCommand);
         addCommand(redoModificationCommand);
+        addCommand(stopTranslateCommand);
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -78,8 +79,8 @@ public class ModificationImageView extends ImageView{
             @Override
             public void mouseDragged(MouseEvent e) {
                 requestFocusInWindow();
-                isDragging = true;
                 if(isMouseOnImage(e.getPoint())){
+                    isDragging = true;
                     moveImageCommand.moveToPosition(new Position(e.getX(),e.getY()));
                 }
             }
