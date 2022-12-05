@@ -7,19 +7,19 @@ import log121.lab2.service.JSONReader;
 import log121.lab2.service.JSONWriter;
 import log121.lab2.service.SaveState;
 import log121.lab2.view.MainView;
-import log121.lab2.view.ModificationImageView;
 
 import java.util.List;
 
 public class MainController {
-
-    MainView mainView;
+    private final MainView mainView;
+    private final CopyImageMediator copyImageMediator;
     public MainController(MainView mainView)
     {
         this.mainView = mainView;
         Image img = new Image();
         setImage(img);
         img.setPath("src/main/resources/log121/lab2/Image/IMG_0661.jpg");
+        copyImageMediator = new CopyImageMediator();
     }
 
     public void changeView(int viewId)

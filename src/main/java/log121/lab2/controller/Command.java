@@ -23,11 +23,3 @@ public abstract class Command {
         return classId;
     }
 }
-    /*
-    @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof Command)
-            return this.relatedClassName.equals(((Command) obj).relatedClassName) && this.getClass().getName().equals(obj.getClass().getName());
-        return super.equals(obj);
-    }
-    */

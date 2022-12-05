@@ -1,14 +1,15 @@
 package log121.lab2.view;
 
 import log121.lab2.controller.*;
+import log121.lab2.controller.commands.CopyCommand;
+import log121.lab2.controller.commands.PasteCommand;
 import log121.lab2.model.Position;
 import log121.lab2.model.Subject;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
 
 public class ModificationImageView extends ImageView{
@@ -37,8 +38,13 @@ public class ModificationImageView extends ImageView{
         this.zoom = -2;
         MoveImageCommand moveImageCommand = new MoveImageCommand(modificationController);
         ZoomImageCommand zoomImageCommand = new ZoomImageCommand(modificationController);
+        CopyCommand copyCommand = new CopyCommand(modificationController);
+        PasteCommand pasteCommand = new PasteCommand();
+
         addCommand(moveImageCommand);
         addCommand(zoomImageCommand);
+        addCommand(copyCommand);
+        addCommand(pasteCommand);
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -54,6 +60,7 @@ public class ModificationImageView extends ImageView{
         super.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
+                requestFocusInWindow();
 
                 if(isMouseOnImage(e.getPoint())){
                     moveImageCommand.moveToPosition(new Position(e.getX(),e.getY()));
@@ -65,6 +72,27 @@ public class ModificationImageView extends ImageView{
             public void mouseWheelMoved(MouseWheelEvent event) {
                 zoomImageCommand.changeZoom(event.getWheelRotation());
             }
+        });
+
+        InputHandler inputHandler = new InputHandler();
+
+        super.addKeyListener(inputHandler);
+
+        Set<Integer> copyKeyList = new HashSet<>();
+        copyKeyList.add(KeyEvent.VK_CONTROL);
+        copyKeyList.add(KeyEvent.VK_C);
+
+        Set<Integer> pasteKeyList = new HashSet<>();
+        pasteKeyList.add(KeyEvent.VK_CONTROL);
+        pasteKeyList.add(KeyEvent.VK_V);
+
+        inputHandler.addEvent(copyKeyList, (KeyEvent) ->
+        {
+            copyCommand.toggle();
+        });
+        inputHandler.addEvent(pasteKeyList, (KeyEvent) ->
+        {
+            pasteCommand.toggle();
         });
 
         activate();
