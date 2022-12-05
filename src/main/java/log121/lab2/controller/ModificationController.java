@@ -14,7 +14,7 @@ import java.util.Stack;
 public class ModificationController extends ImageController{
     private Perspective perspective;
     private List<PerspectiveMomento> perspectiveMomentos;
-    private int pointer = -1;
+    private int pointer = 0;
 
     public ModificationController(ImageView imageView, int width, int height) {
         super(imageView);
@@ -30,6 +30,7 @@ public class ModificationController extends ImageController{
         super();
         this.perspective = perspective;
         this.perspectiveMomentos = new ArrayList<>();
+        Store.getInstance().addPerspective(perspective);
         addMomento();
     }
 
@@ -65,10 +66,11 @@ public class ModificationController extends ImageController{
     }
     public void undo()
     {
-        if (pointer>=0) {
+        if (pointer>0) {
             pointer--;
             PerspectiveMomento momento = perspectiveMomentos.get(pointer);
             momento.setPerspectiveToState(this.perspective);
+
         }
     }
 
@@ -87,17 +89,18 @@ public class ModificationController extends ImageController{
     public void paste(Position position, int width, int height)
     {
         this.perspective.setPosition(position);
-        this.perspective.setWidth(width);
-        this.perspective.setHeight(height);
+        this.perspective.setSize(width, height);
+        addMomento();
     }
     public void paste(Position position)
     {
         this.perspective.setPosition(position);
+        addMomento();
     }
     public void paste(int width, int height)
     {
-        this.perspective.setWidth(width);
-        this.perspective.setHeight(height);
+        this.perspective.setSize(width, height);
+        addMomento();
     }
 
 

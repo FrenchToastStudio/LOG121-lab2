@@ -76,4 +76,8 @@ public class ImageLabel extends JLabel {
         resizeImage();
     }
 
+    public Point getPosition()
+    {
+        return new Point(x,y);
+    }
 }

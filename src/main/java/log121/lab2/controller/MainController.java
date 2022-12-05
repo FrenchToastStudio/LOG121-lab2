@@ -66,7 +66,8 @@ public class MainController {
     {
 
         List<ModificationController> modificationControllers = new ArrayList<>();
-        for(int i =0; i <= NUMBER_OF_MODIFICATION_VIEW; i++)
+        Store.getInstance().resetPerspective();
+        for(int i =0; i < NUMBER_OF_MODIFICATION_VIEW; i++)
         {
             modificationControllers.add(createNewModificationController());
         }

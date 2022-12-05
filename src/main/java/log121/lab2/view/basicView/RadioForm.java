@@ -15,7 +15,7 @@ public class RadioForm extends JFrame implements IRadioForm {
     private static final String TITLE = "SELECT COPY STATEGYs";
     private static final Dimension DIMENSION = new Dimension(400, 200);
 
-    public ButtonGroup buttonGroup;
+    private ButtonGroup buttonGroup;
     private final Container container;
 
     public RadioForm(RadioFormBuilder builder)

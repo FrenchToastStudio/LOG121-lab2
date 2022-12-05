@@ -10,13 +10,14 @@ public class PasteCommand extends Command {
 
     public PasteCommand(ModificationController modificationController)
     {
-
+        this.modificationController = modificationController;
     }
 
     @Override
     public void execute()
     {
         CopyImageMediator.getInstance().paste(modificationController);
+        needExectuion = false;
     }
 
     @Override

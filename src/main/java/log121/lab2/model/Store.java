@@ -52,9 +52,13 @@ public class Store {
     }
     public void addPerspective(Perspective perspective)
     {
-        if(this.image != null) {
-            this.image.addPerspective(perspective);
-        }
+        perspective.setId(perspectives.size());
         this.perspectives.add(perspective);
+    }
+
+    public void resetPerspective()
+    {
+        this.image.perspectives = new ArrayList<>();
+        this.perspectives = new ArrayList<>();
     }
 }

@@ -53,12 +53,17 @@ public class MainView extends JFrame implements Observer{
         int width = getWidth();
         int height = getHeight();
 
+        this.imageViews.forEach(ImageView::destroy);
         this.imageViews = new ArrayList<>();
         this.imageViews.add(new StaticImageView());
-        this.imageViews.addAll(controllers.stream().map(ModificationImageView::new).toList());
+
+        for (ModificationController controller: controllers) {
+            this.imageViews.add(new ModificationImageView(controller));
+        }
         this.imageViews.forEach(imageView ->
         {
             imageView.setMaxSize(width, height);
+            imageView.pause();
             this.add(imageView);
         });
         selectViewMenuBar.setTabs(this.imageViews);
@@ -83,6 +88,7 @@ public class MainView extends JFrame implements Observer{
         selectViewMenuBar.select(id);
         getContentPane().revalidate();
         getContentPane().repaint();
+        activeImageView.requestFocus();
         activeImageView.resume();
 
         revalidate();

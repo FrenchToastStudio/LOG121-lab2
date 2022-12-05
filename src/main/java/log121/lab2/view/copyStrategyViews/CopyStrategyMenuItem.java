@@ -6,11 +6,13 @@ import log121.lab2.controller.MainController;
 import log121.lab2.controller.commands.ChooseCopyStrategyCommand;
 import log121.lab2.view.View;
 import log121.lab2.view.basicView.CustomRadioButton;
+import log121.lab2.view.basicView.RadioForm;
 import log121.lab2.view.basicView.RadioFormBuilder;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class CopyStrategyMenuItem extends JMenuItem implements View {
     private static final String TEXT = "Choose Copy Strategy";
     private ChooseCopyStrategyCommand chooseCopyStrategyCommand;
     private List<Command> commands;
+    private RadioForm frame;
     public CopyStrategyMenuItem(MainController mainController)
     {
         commands = new ArrayList<>();
@@ -35,7 +38,7 @@ public class CopyStrategyMenuItem extends JMenuItem implements View {
                 add(new CopyRadioButton(CopyStrategyEnum.DEACTIVATE, mainController));
             }};
 
-            new RadioFormBuilder(radioButtonList)
+            frame = new RadioFormBuilder(radioButtonList)
                     .explanationText("This will change the behavior of 'ctrl-c + ctrl-v'")
                     .confirmAction(this::buttonSucceed)
                     .build();
@@ -48,12 +51,14 @@ public class CopyStrategyMenuItem extends JMenuItem implements View {
     {
         CopyRadioButton radioButton = (CopyRadioButton) button;
         chooseCopyStrategyCommand.buttonToggle(radioButton.getCopyStrategyEnum());
+        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     }
 
-    public void closeForm(ActionEvent event)
+    public void closeForm(Component component)
     {
         destroy();
-        SwingUtilities.getWindowAncestor((Component) event.getSource()).dispose();
+
+        SwingUtilities.getWindowAncestor(component).dispose();
 
     }
 

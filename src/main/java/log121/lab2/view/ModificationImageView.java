@@ -15,7 +15,6 @@ import java.util.Set;
 
 public class ModificationImageView extends ImageView{
 
-    private int xPosition, yPosition, zoom;
     private Point lastMousePos;
     private boolean isDragActive;
 
@@ -36,10 +35,6 @@ public class ModificationImageView extends ImageView{
 
     private void viewSetUp()
     {
-        this.xPosition = this.getWidth()/2;
-        this.yPosition = this.getHeight()/2;
-        this.zoom = -2;
-
         MoveImageCommand moveImageCommand = new MoveImageCommand(modificationController);
         ZoomImageCommand zoomImageCommand = new ZoomImageCommand(modificationController);
         CopyCommand copyCommand = new CopyCommand(modificationController);
@@ -61,6 +56,7 @@ public class ModificationImageView extends ImageView{
         super.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+                requestFocus();
                 if(isMouseOnImage(e.getPoint())){
                     lastMousePos = e.getPoint();
                 }
@@ -150,8 +146,10 @@ public class ModificationImageView extends ImageView{
     }
 
     public Position calculateNewPosition(Point newMousePoint){
-        int newPositionX = this.xPosition + (newMousePoint.x - lastMousePos.x);
-        int newPositionY = this.yPosition + (newMousePoint.y - lastMousePos.y);
+        Point imagePositon = getImagePosition();
+
+        int newPositionX = imagePositon.x + (newMousePoint.x - lastMousePos.x);
+        int newPositionY = imagePositon.y + (newMousePoint.y - lastMousePos.y);
         lastMousePos = newMousePoint;
 
 
@@ -173,9 +171,9 @@ public class ModificationImageView extends ImageView{
         return new Position(newPositionX,newPositionY);
     }
 
+
     public void updateImagePos(int x, int y) {
-    this.xPosition = x;
-    this.yPosition = y;
+
     }
 
 }

@@ -28,7 +28,7 @@ public class SelectViewMenuBar extends JMenuBar {
 
         menuItemList  = new ArrayList<>();
 
-        for (int i = 0; i < imageViews.size() - 1; i++) {
+        for (int i = 0; i < imageViews.size(); i++) {
             menuItemList.add(new SelectImageMenuItem("Vue " + (i+1), i,this.controller));
         }
         for (SelectImageMenuItem menuItem : menuItemList) {

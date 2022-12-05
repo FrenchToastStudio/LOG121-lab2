@@ -2,6 +2,7 @@ package log121.lab2.view;
 
 import log121.lab2.controller.Command;
 import log121.lab2.controller.CommandManager;
+import log121.lab2.controller.ViewState;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ImageView extends JPanel implements View, Observer{
+
+    private ViewState viewState;
 
     private List<Command> commands;
     private ImageLabel imageLabel;
@@ -91,19 +94,30 @@ public abstract class ImageView extends JPanel implements View, Observer{
 
     public void activate()
     {
-        CommandManager.getInstance().attachCommand(this, commands);
-        setFocusable(true);
+        if(viewState != null) {
+            if(!viewState.equals(ViewState.Activated)) {
+                viewState = ViewState.Activated;
+                CommandManager.getInstance().attachCommand(this, commands);
+                setFocusable(true);
+            }
+        }
     }
 
     public void pause()
     {
+        viewState = ViewState.Paused;
         CommandManager.getInstance().detachCommand(this);
     }
 
     public void resume()
     {
-        CommandManager.getInstance().attachCommand(this, commands);
-        setFocusable(true);
+        if(viewState != null) {
+            if (!viewState.equals(ViewState.Activated)) {
+                viewState = ViewState.Activated;
+                CommandManager.getInstance().attachCommand(this, commands);
+                setFocusable(true);
+            }
+        }
     }
 
     public void destroy()
@@ -125,4 +139,8 @@ public abstract class ImageView extends JPanel implements View, Observer{
         imageLabel.setMax(width, height);
     }
 
+    protected Point getImagePosition()
+    {
+        return imageLabel.getPosition();
+    }
 }

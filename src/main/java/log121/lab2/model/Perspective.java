@@ -4,6 +4,7 @@ import log121.lab2.view.Observer;
 
 public class Perspective extends Subject {
 
+    private int id;
     private Position position;
     private int zoom;
     private int height, width;
@@ -108,5 +109,9 @@ public class Perspective extends Subject {
     {
         notifyObserverSizeChanged(getHeight(), getWidth());
         notifyObserversPositionChanged(getX(), getY());
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

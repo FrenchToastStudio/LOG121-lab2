@@ -29,7 +29,7 @@ public class InputHandler implements KeyListener {
     {
         int code = e.getKeyCode();
 
-        if(code == 0)
+        if(code == 0 )
             return;
         activeKeys.add(e.getKeyCode());
         for (KeyPressEventResult command: this.commands)
