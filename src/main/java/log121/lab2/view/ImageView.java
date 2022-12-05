@@ -99,6 +99,7 @@ public abstract class ImageView extends JPanel implements View, Observer{
                 viewState = ViewState.Activated;
                 CommandManager.getInstance().attachCommand(this, commands);
                 setFocusable(true);
+                requestFocus();
             }
         }
     }
@@ -107,6 +108,7 @@ public abstract class ImageView extends JPanel implements View, Observer{
     {
         viewState = ViewState.Paused;
         CommandManager.getInstance().detachCommand(this);
+        setFocusable(false);
     }
 
     public void resume()
@@ -116,6 +118,7 @@ public abstract class ImageView extends JPanel implements View, Observer{
                 viewState = ViewState.Activated;
                 CommandManager.getInstance().attachCommand(this, commands);
                 setFocusable(true);
+                requestFocus();
             }
         }
     }

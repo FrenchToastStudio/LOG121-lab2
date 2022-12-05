@@ -38,13 +38,16 @@ public class MainController {
     public void load(){
         JSONReader jsonReader = new JSONReader();
         SaveState saveState = jsonReader.load();
-        Image image = saveState.getImage();
+        this.image = saveState.getImage();
         List<Perspective> perspectives = saveState.getPerspectiveList();
 
         setPerspective(perspectives);
-        setImage(image);
+
+        mainView.attachViewsToSubject(image);
 
         Store.getInstance().setPerspectives(perspectives);
+        Store.getInstance().setImage(image);
+
     }
 
     private void setImage(Image image)
@@ -54,9 +57,12 @@ public class MainController {
 
     private void setPerspective(List<Perspective> perspectives)
     {
-        mainView.setImageViews(
-         perspectives.stream().map(this::setPerspective).toList()
-        );
+        List<ModificationController> controllers = new ArrayList<>();
+        for (Perspective perspective: perspectives) {
+            controllers.add(new ModificationController(perspective));
+        }
+
+        mainView.setImageViews(controllers);
     }
     private ModificationController setPerspective(Perspective perspective)
     {

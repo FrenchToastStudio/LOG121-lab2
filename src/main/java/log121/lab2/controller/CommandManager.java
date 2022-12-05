@@ -50,14 +50,14 @@ public class CommandManager {
             removeList.add(view.toString());
         }
         else {
-            this.commands.removeIf(command -> command.getClassId() == view.toString());
+            this.commands.removeIf(command -> command.checkIfCommandOfClass(view));
         }
     }
 
     private void executeRemoveQueue()
     {
         if(!removeList.isEmpty()) {
-            this.removeList.forEach(view -> commands.removeIf(command -> Objects.equals(command.getClassId(), view)));
+            this.removeList.forEach(view -> commands.removeIf(command -> command.checkIfCommandOfClass(view)));
             removeList = new ArrayList<>();
         }
     }

@@ -2,7 +2,7 @@ package log121.lab2.controller;
 
 public abstract class Command {
 
-    private String classId;
+    private Object object;
 
     public Command() {
     }
@@ -11,12 +11,14 @@ public abstract class Command {
 
     public abstract boolean isConditionMet();
 
-    public void setClassId(String id)
+
+
+    public void setClassId(Object object)
     {
-        this.classId = id;
+        this.object = object;
     }
 
-    public String getClassId() {
-        return classId;
+    public boolean checkIfCommandOfClass(Object object) {
+        return this.object == object;
     }
 }
