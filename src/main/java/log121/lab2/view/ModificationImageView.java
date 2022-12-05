@@ -13,6 +13,7 @@ public class ModificationImageView extends ImageView{
     private int xPosition, yPosition, zoom;
     private double scalingFactor = 1.2;
     private Point lastMousePos;
+    private boolean isDragActive;
 
     ModificationController modificationController;
 
@@ -42,15 +43,22 @@ public class ModificationImageView extends ImageView{
         super.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+                if(isMouseOnImage(e.getPoint())){
                 lastMousePos = e.getPoint();
+                }
+            }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+               isDragActive = false;
             }
         });
+
 
         super.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
 
-                if(isMouseOnImage(e.getPoint())){
+                if(isDragActive){
                     moveImageCommand.moveToPosition(calculateNewPosition(e.getPoint()));
                 }
             }
@@ -67,13 +75,31 @@ public class ModificationImageView extends ImageView{
 
     public boolean isMouseOnImage(Point point){
         Rectangle rectangle = getImageLabel().getBounds();
-        return rectangle.contains(point);
+        boolean isOnImage = rectangle.contains(point);
+        if (isOnImage) this.isDragActive = isOnImage;
+        return isOnImage;
     }
 
     public Position calculateNewPosition(Point newMousePoint){
         int newPositionX = this.xPosition + (newMousePoint.x - lastMousePos.x);
         int newPositionY = this.yPosition + (newMousePoint.y - lastMousePos.y);
         lastMousePos = newMousePoint;
+
+
+        Dimension windowRectangle = super.getSize();
+        if(newPositionX < 0){
+            newPositionX = 0;
+        }
+        else if(newPositionX > windowRectangle.width){
+            newPositionX = windowRectangle.width;
+        }
+        if(newPositionY < 0){
+            newPositionY = 0;
+        }
+        else if(newPositionY > windowRectangle.height){
+            newPositionY = windowRectangle.height;
+        }
+
         updateImagePos(newPositionX,newPositionY);
         return new Position(newPositionX,newPositionY);
     }
