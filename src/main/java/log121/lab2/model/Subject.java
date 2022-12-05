@@ -1,5 +1,6 @@
 package log121.lab2.model;
 
+import log121.lab2.service.imageStrategy.IImageViewStrategy;
 import log121.lab2.view.Observer;
 
 import java.awt.image.BufferedImage;
@@ -29,7 +30,7 @@ public abstract class Subject {
         }
     }
 
-    public void notifyObserversPathChanged(BufferedImage bufferedImage){
+    public void notifyObserversPathChanged(IImageViewStrategy bufferedImage){
         for (Observer o : observers){
             o.updateImage(bufferedImage);
         }

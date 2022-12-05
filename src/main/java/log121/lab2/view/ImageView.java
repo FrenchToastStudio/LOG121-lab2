@@ -3,6 +3,7 @@ package log121.lab2.view;
 import log121.lab2.controller.commands.Command;
 import log121.lab2.controller.commands.CommandManager;
 import log121.lab2.controller.ViewState;
+import log121.lab2.service.imageStrategy.IImageViewStrategy;
 import log121.lab2.view.components.label.ImageLabel;
 
 import javax.imageio.ImageIO;
@@ -63,7 +64,7 @@ public abstract class ImageView extends JPanel implements View, Observer{
 
     public void showImage(BufferedImage image, int x, int y, int width, int height)
     {
-        imageLabel.setImageIcon(image);
+        //imageLabel.setImageIcon(image);
         imageLabel.setPerspective(x, y, height, width);
     }
 
@@ -87,9 +88,9 @@ public abstract class ImageView extends JPanel implements View, Observer{
     }
 
     @Override
-    public void updateImage(BufferedImage image) {
+    public void updateImage(IImageViewStrategy image) {
         if(image != null) {
-            imageLabel.setImageIcon(image);
+            imageLabel.setImage(image);
         }
     }
 

@@ -1,5 +1,8 @@
 package log121.lab2.model;
 
+import log121.lab2.service.imageStrategy.GifViewStrategy;
+import log121.lab2.service.imageStrategy.IImageViewStrategy;
+import log121.lab2.service.imageStrategy.PNGViewStrategy;
 import log121.lab2.view.Observer;
 
 import javax.imageio.ImageIO;
@@ -12,7 +15,7 @@ import java.util.List;
 public class Image extends Subject{
 
     public List<Perspective> perspectives;
-    private BufferedImage bufferedImage;
+    private IImageViewStrategy imageViewStrategy;
     private String path;
     public Image()
     {
@@ -26,18 +29,24 @@ public class Image extends Subject{
 
     public void setPath(String path) {
         this.path = path;
-        try {
-            bufferedImage = ImageIO.read(new File(this.path));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+        if(path.contains(".gif"))
+        {
+            this.imageViewStrategy = new GifViewStrategy();
         }
+        else
+        {
+            this.imageViewStrategy = new PNGViewStrategy();
+        }
+
+        this.imageViewStrategy.setImage(path);
 
         this.notifyObserversPathChanged();
 
         if(this.path != null && this.perspectives != null) {
             perspectives.forEach(perspective ->
             {
-                perspective.setSize(bufferedImage.getWidth(), bufferedImage.getHeight());
+                perspective.setSize(this.imageViewStrategy.getWidth(), this.imageViewStrategy.getHeight());
             });
         }
     }
@@ -46,10 +55,10 @@ public class Image extends Subject{
     {
         this.perspectives = perspectives;
         for (Perspective perspective: this.perspectives) {
-            if(this.bufferedImage != null && (perspective.getWidth() == 0 || perspective.getHeight() ==0))
+            if(this.imageViewStrategy != null && (perspective.getWidth() == 0 || perspective.getHeight() ==0))
             {
-                perspective.setHeight(this.bufferedImage.getHeight());
-                perspective.setWidth(this.bufferedImage.getWidth());
+                perspective.setHeight(this.imageViewStrategy.getHeight());
+                perspective.setWidth(this.imageViewStrategy.getWidth());
             }
         }
     }
@@ -58,24 +67,24 @@ public class Image extends Subject{
     {
         if(this.perspectives == null)
             this.perspectives = new ArrayList<>();
-        if(this.bufferedImage != null & (perspective.getWidth() ==0 || perspective.getHeight() ==0))
+        if(this.imageViewStrategy != null & (perspective.getWidth() ==0 || perspective.getHeight() ==0))
         {
-            perspective.setHeight(this.bufferedImage.getHeight());
-            perspective.setWidth(this.bufferedImage.getWidth());
+            perspective.setHeight(this.imageViewStrategy.getHeight());
+            perspective.setWidth(this.imageViewStrategy.getWidth());
         }
         this.perspectives.add(perspective);
     }
 
     public void notifyObserversPathChanged(){
-        if(this.bufferedImage == null)
+        if(this.imageViewStrategy == null)
             return;
-        this.notifyObserversPathChanged(this.bufferedImage);
+        this.notifyObserversPathChanged(this.imageViewStrategy);
     }
 
     @Override
     public void attach(Observer observer) {
         super.attach(observer);
-        if(this.bufferedImage != null)
+        if(this.imageViewStrategy != null)
         {
             notifyObserversPathChanged();
         }

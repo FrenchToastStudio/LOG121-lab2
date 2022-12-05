@@ -1,5 +1,7 @@
 package log121.lab2.view.components.label;
 
+import log121.lab2.service.imageStrategy.IImageViewStrategy;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -9,6 +11,7 @@ public class ImageLabel extends JLabel {
     private int x, y, maxX, maxY, width, height;
     private static final double zoomScale = 5;
 
+    private IImageViewStrategy viewStrategy;
     private BufferedImage image;
 
     public ImageLabel(int maxX, int maxY)
@@ -32,7 +35,15 @@ public class ImageLabel extends JLabel {
         resizeImage();
     }
 
-    public void setImageIcon(BufferedImage image) {
+    public void setImage(IImageViewStrategy viewStrategy) {
+        this.viewStrategy = viewStrategy;
+        this.viewStrategy.setConsumer((this::setImageIcon));
+        this.viewStrategy.show();
+    }
+
+    public void setImageIcon(BufferedImage image)
+    {
+
         this.image = image;
 
         if((this.x == 0 && this.y == 0) || (this.height == 0 || this.width == 0))
@@ -46,6 +57,8 @@ public class ImageLabel extends JLabel {
         //IconAnimator iconAnimator = new IconAnimator(this, getIcon(), 250)l
         resizeImage();
     }
+
+
 
     public void resizeImage()
     {

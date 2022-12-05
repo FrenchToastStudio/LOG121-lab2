@@ -3,6 +3,7 @@ package log121.lab2.view;
 import log121.lab2.controller.MainController;
 import log121.lab2.controller.ModificationController;
 import log121.lab2.model.Subject;
+import log121.lab2.service.imageStrategy.IImageViewStrategy;
 import log121.lab2.view.components.menuBar.SelectViewMenuBar;
 
 import javax.swing.*;
@@ -112,7 +113,7 @@ public class MainView extends JFrame implements Observer{
     }
 
     @Override
-    public void updateImage(BufferedImage image) {
+    public void updateImage(IImageViewStrategy image) {
 
     }
 
