@@ -10,14 +10,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ModificationImageView extends ImageView{
 
-    private boolean isDragging;
     private int xPosition, yPosition, zoom;
-    private double scalingFactor = 1.2;
     private Point lastMousePos;
     private boolean isDragActive;
 
@@ -165,22 +162,8 @@ public class ModificationImageView extends ImageView{
         return new Position(newPositionX,newPositionY);
     }
 
-    public ModificationImageView(Color bg)
-    {
-        this();
-        this.setBackground(bg);
-    }
-
     public void showImage(String imagePath) {
         super.showImage(imagePath, xPosition, yPosition, zoom);
-    }
-
-    public void showImage(int zoom){
-        super.showImage(imagePath, xPosition, yPosition, zoom);
-    }
-
-    public ModificationImageView(List<Command> commands) {
-        super(commands);
     }
 
     public void updateImagePos(int x, int y) {
