@@ -14,6 +14,9 @@ public class ChooseCopyStrategyCommand extends Command {
     {
     }
 
+    /**
+     * Méthode d'exécution de la commande ChooseCopyStrategy
+     */
     @Override
     public void execute()
     {
@@ -21,11 +24,19 @@ public class ChooseCopyStrategyCommand extends Command {
         needsExecution = false;
     }
 
+    /**
+     * Vérifie si la condition pour exécuter la commande est remplie.
+     * @return true si la commande peut être exécutée, false sinon.
+     */
     @Override
     public boolean isConditionMet() {
         return needsExecution;
     }
 
+    /**
+     * Active ou désactive le bouton en fonction de la stratégie de copie sélectionnée.
+     * @param copyStrategy La stratégie de copie sélectionnée
+     */
     public void buttonToggle(CopyStrategyEnum copyStrategy)
     {
         needsExecution = true;

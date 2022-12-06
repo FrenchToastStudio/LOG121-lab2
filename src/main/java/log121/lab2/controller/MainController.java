@@ -12,11 +12,21 @@ import log121.lab2.view.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+
+ Classe principale contrôleur qui gère la vue principale et les actions de l'utilisateur.
+ */
 public class MainController {
 
     private static final int NUMBER_OF_MODIFICATION_VIEW = 2;
     private MainView mainView;
     private Image image;
+
+    /**
+
+     Constructeur qui initialise la vue principale et l'image à afficher.
+     @param mainView La vue principale de l'application
+     */
     public MainController(MainView mainView)
     {
         this.mainView = mainView;
@@ -25,17 +35,30 @@ public class MainController {
         image.setPath("src/main/resources/log121/lab2/Image/IMG_0661.jpg");
     }
 
+    /**
+
+     Méthode qui change la vue actuellement affichée dans la fenêtre principale.
+     @param viewId L'identifiant de la vue à afficher
+     */
     public void changeView(int viewId)
     {
         mainView.ChangeImageView(viewId);
     }
 
+    /**
+
+     Méthode qui sauvegarde l'état actuel de l'application dans un fichier JSON.
+     */
     public void save(){
         SaveState saveState = new SaveState(Store.getInstance().getPerspectives(), Store.getInstance().getImage());
         JSONWriter writer = new JSONWriter();
         writer.saveState(saveState);
     }
 
+    /**
+
+     Méthode qui charge un état précédemment sauvegardé de l'application à partir d'un fichier JSON.
+     */
     public void load(){
         JSONReader jsonReader = new JSONReader();
         SaveState saveState = jsonReader.load();
@@ -51,11 +74,22 @@ public class MainController {
 
     }
 
+    /**
+
+     Méthode qui définit l'image à afficher dans l'application.
+     @param image L'image à afficher
+     */
     private void setImage(Image image)
     {
         Store.getInstance().setImage(image);
     }
 
+    /**
+
+     Méthode qui définit les perspectives à afficher dans l'application.
+
+     @param perspectives La liste des perspectives à afficher
+     */
     private void setPerspective(List<Perspective> perspectives)
     {
         List<ModificationController> controllers = new ArrayList<>();
@@ -65,10 +99,22 @@ public class MainController {
 
         mainView.setImageViews(controllers);
     }
+
+    /**
+
+     Crée un nouveau contrôleur de modification pour une perspective donnée.
+     @param perspective La perspective pour laquelle le contrôleur sera créé
+     @return Un nouveau contrôleur de modification
+     */
     private ModificationController setPerspective(Perspective perspective)
     {
         return new ModificationController(perspective);
     }
+
+    /**
+
+     Réinitialise les vues de l'application.
+     */
     public void resetViews()
     {
 
@@ -81,6 +127,12 @@ public class MainController {
         mainView.setImageViews(modificationControllers);
         mainView.attachViewsToSubject(image);
     }
+
+    /**
+
+     Crée un nouveau contrôleur de modification avec une nouvelle perspective.
+     @return Le contrôleur de modification créé
+     */
     private ModificationController createNewModificationController()
     {
         Perspective perspective = new Perspective();
@@ -90,7 +142,10 @@ public class MainController {
         return new ModificationController(perspective);
     }
 
+    /**
 
+     Ouvre une fenêtre de sélection d'image pour changer l'image actuelle.
+     */
     public void changeImage()
     {
         ImagePicker imagePicker = new ImagePicker();
