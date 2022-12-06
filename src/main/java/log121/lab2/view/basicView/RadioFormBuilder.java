@@ -11,6 +11,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.function.Consumer;
 
+/**
+ * builder that lets the user build a radio form from parameters
+ */
 public class RadioFormBuilder {
 
     // REQUIRED PARAMTER
@@ -29,6 +32,11 @@ public class RadioFormBuilder {
 
     private ActionListener cancelAction;
     private Consumer<CustomRadioButton> confirmAction;
+
+    /**
+     * Constructor with the Required Parameters that the user needs to give
+     * @param radioButtons
+     */
     public RadioFormBuilder(List<JRadioButton> radioButtons)
     {
         this.type = RadioForm.class;
@@ -38,6 +46,11 @@ public class RadioFormBuilder {
         this.confirmationPanelLayout = BorderLayout.AFTER_LAST_LINE;
     }
 
+    /**
+     * Lets the user add text to explain the form
+     * @param text text to explain
+     * @return updated radioForm
+     */
     public RadioFormBuilder explanationText(String text)
     {
         explanationText = text;
@@ -45,24 +58,43 @@ public class RadioFormBuilder {
         return this;
     }
 
+    /**
+     * Lets the user redifine the action when user confirms
+     * @param radioButton lambda of what to do when the user confirms the Form
+     * @return updated radioFormBuilder
+     */
     public RadioFormBuilder confirmAction(Consumer<CustomRadioButton> radioButton)
     {
         this.confirmAction = radioButton;
         return this;
     }
 
+    /**
+     * Lets user change the confirm button text
+     * @param text new confirm button text
+     * @return updated radioFormBuild
+     */
     public RadioFormBuilder confirmText(String text)
     {
         this.confirmTxt = text;
         return this;
     }
 
+    /**
+     * lets the user change the cancel Text
+     * @param text new text for the cancel button
+     * @return updated radioFormBuild
+     */
     public RadioFormBuilder cancelText(String text)
     {
         this.cancelTxt = text;
         return this;
     }
 
+    /**
+     * set ups and returns a new RadioForm from the entered parameters
+     * @return the Built RadioForm
+     */
     public RadioForm build()
     {
 

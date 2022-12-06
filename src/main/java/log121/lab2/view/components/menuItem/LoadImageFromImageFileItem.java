@@ -11,6 +11,9 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class LoadImageFromImageFileItem extends JMenuItem implements View
 {
 

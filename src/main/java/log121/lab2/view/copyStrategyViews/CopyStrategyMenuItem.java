@@ -32,10 +32,10 @@ public class CopyStrategyMenuItem extends JMenuItem implements View {
         addActionListener((ActionEvent e) -> {
             List<JRadioButton> radioButtonList = new ArrayList<>()
             {{
-                add(new CopyRadioButton(CopyStrategyEnum.ALL, mainController));
-                add(new CopyRadioButton(CopyStrategyEnum.POSITION, mainController));
-                add(new CopyRadioButton(CopyStrategyEnum.SIZE, mainController));
-                add(new CopyRadioButton(CopyStrategyEnum.DEACTIVATE, mainController));
+                add(new CopyRadioButton(CopyStrategyEnum.ALL));
+                add(new CopyRadioButton(CopyStrategyEnum.POSITION));
+                add(new CopyRadioButton(CopyStrategyEnum.SIZE));
+                add(new CopyRadioButton(CopyStrategyEnum.DEACTIVATE));
             }};
 
             frame = new RadioFormBuilder(radioButtonList)

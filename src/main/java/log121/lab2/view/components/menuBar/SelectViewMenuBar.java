@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Selectable view MenuBar
+ */
 public class SelectViewMenuBar extends JMenuBar {
 
     private List<SelectImageMenuItem> menuItemList;
@@ -17,6 +20,10 @@ public class SelectViewMenuBar extends JMenuBar {
         this.controller = mainController;
     }
 
+    /**
+     * sets up the tabs depending on the image views
+     * @param imageViews the images-view that can be tabbed in
+     */
     public void setTabs(List<ImageView> imageViews)
     {
         if(menuItemList == null)
@@ -37,6 +44,10 @@ public class SelectViewMenuBar extends JMenuBar {
         }
     }
 
+    /**
+     * Selects the right tab to update the coloring
+     * @param id id of the tab that we want to select
+     */
     public void select(int id)
     {
         if(menuItemList != null) {
@@ -44,6 +55,9 @@ public class SelectViewMenuBar extends JMenuBar {
                 menuItemList.forEach(SelectImageMenuItem::unSelect);
                 menuItemList.stream().filter(selectImageMenuItem -> selectImageMenuItem.getId() == id).findFirst().get().select();
             }
+
+            //resets menu item not sure if it work without
+            // TODO: confirm if we can remove this
             for (JMenuItem item : menuItemList) {
                 remove(item);
             }

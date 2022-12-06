@@ -8,6 +8,9 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.function.Consumer;
 
+/**
+ * General RadioForm
+ */
 public class RadioForm extends JFrame implements IRadioForm {
 
     @Serial
@@ -18,6 +21,10 @@ public class RadioForm extends JFrame implements IRadioForm {
     private ButtonGroup buttonGroup;
     private final Container container;
 
+    /**
+     * Constructor that generate a Form from the data of a RadioFormBuilder
+     * @param builder builder of this form
+     */
     public RadioForm(RadioFormBuilder builder)
     {
         this.container = getContentPane();
@@ -52,7 +59,11 @@ public class RadioForm extends JFrame implements IRadioForm {
     }
 
 
-
+    /**
+     * set up a panel that explain the data in the form if the user chooses to do so
+     * @param explanationText text that explains
+     * @param explanationPanelLayout layout of the panel
+     */
     private void setUpExplanationPanel(String explanationText, String explanationPanelLayout)
     {
         JPanel jPanel = new JPanel();
@@ -63,6 +74,11 @@ public class RadioForm extends JFrame implements IRadioForm {
         this.container.add(jPanel, explanationPanelLayout);
     }
 
+    /**
+     * set ups the different choice the user will be faced with
+     * @param radioButtons button that can be selected
+     * @param radioButtonPanelLayout layout of the panel
+     */
     private void setUpChoice(List<JRadioButton> radioButtons, String radioButtonPanelLayout)
     {
         JPanel radioButtonPanel = new JPanel();
@@ -76,6 +92,12 @@ public class RadioForm extends JFrame implements IRadioForm {
         this.container.add(radioButtonPanel, radioButtonPanelLayout);
     }
 
+    /**
+     * set-ups tje confirmation of the form
+     * @param confirmationPanelLayout layout of the panel
+     * @param confirmationText text for the confirm button
+     * @param cancelText textfor the cancel button
+     */
     private void setUpConfirmation(String confirmationPanelLayout, String confirmationText, String cancelText)
     {
         JPanel buttonPanel = new JPanel();
@@ -88,6 +110,14 @@ public class RadioForm extends JFrame implements IRadioForm {
         this.container.add(buttonPanel, confirmationPanelLayout);
     }
 
+    /**
+     * Set ups the confirmation section
+     * @param confirmationPanelLayout layout of the panel
+     * @param confirmationText text for the confirm button
+     * @param cancelText textfor the cancel button
+     * @param confirmAction method to call when action is confirmed
+     * @param cancelAction method to call when action is canceled
+     */
     private void setUpConfirmation(String confirmationPanelLayout, String confirmationText, String cancelText,  Consumer<CustomRadioButton> confirmAction, Consumer cancelAction) {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
@@ -171,6 +201,10 @@ public class RadioForm extends JFrame implements IRadioForm {
         closeForm(event);
     }
 
+    /**
+     * closes this form
+     * @param event the event that it il react from
+     */
     public void closeForm(ActionEvent event)
     {
         SwingUtilities.getWindowAncestor((Component) event.getSource()).dispose();

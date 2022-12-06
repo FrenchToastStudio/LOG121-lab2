@@ -9,16 +9,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Model that represents an image in our app
+ */
 public class Image extends Subject{
 
     public List<Perspective> perspectives;
     private BufferedImage bufferedImage;
     private String path;
+
+    /**
+     * constructor
+     */
     public Image()
     {
         super();
     }
-
 
     public String getPath() {
         return path;

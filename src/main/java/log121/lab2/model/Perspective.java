@@ -11,6 +11,9 @@ public class Perspective extends Subject {
     private final int minSize = 10;
     private final int scaleZoomBoost = 5;
 
+    /**
+     * Constructor that represent the perspective of an image that can be modified in this app
+     */
     public Perspective()
     {
         super();
@@ -70,6 +73,10 @@ public class Perspective extends Subject {
         return setPosition(new Position(x, y));
     }
 
+    /**
+     * changes the width of the image to zoom on it
+     * @param zoom zoom value  -1 to unZoom +1 to zoom in
+     */
     public void setZoom(int zoom) {
 
         if(zoom != 0) {
@@ -104,18 +111,29 @@ public class Perspective extends Subject {
         }
     }
 
+    /**
+     * attach observ that will be notify when changed are made on this class
+     * @param observer obervers to attach to this subject
+     */
     @Override
     public void attach(Observer observer) {
         super.attach(observer);
         notifyObserverObjectChanged();
     }
 
+    /**
+     * notify observers that the ENTIRE object has changed
+     */
     public void notifyObserverObjectChanged()
     {
         notifyObserverSizeChanged(getHeight(), getWidth());
         notifyObserversPositionChanged(getX(), getY());
     }
 
+    /**
+     * sets a id to th perspective (mostly used for debugging)
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }

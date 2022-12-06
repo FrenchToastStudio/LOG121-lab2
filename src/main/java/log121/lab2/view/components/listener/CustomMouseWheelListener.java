@@ -5,11 +5,18 @@ import java.awt.event.MouseWheelListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Custom Mouse wheel Listener with a stop wheel event
+ */
 public class CustomMouseWheelListener implements MouseWheelListener {
 
     private static final int TIMER_DELAY = 200;
     private Timer timer;
 
+    /**
+     * run when the mouse wheel is used and waits for it to stop
+     * @param e the event to be processed
+     */
     @Override
     public void mouseWheelMoved(MouseWheelEvent e)
     {
@@ -28,6 +35,9 @@ public class CustomMouseWheelListener implements MouseWheelListener {
         }, TIMER_DELAY);
     }
 
+    /**
+     * run when the mouse wheel has been inactive for a x amount of time
+     */
     public void mouseWheelStop()
     {
         this.timer.cancel();

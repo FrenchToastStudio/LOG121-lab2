@@ -1,9 +1,7 @@
 package log121.lab2.view.copyStrategyViews;
 
-import log121.lab2.controller.MainController;
 import log121.lab2.view.basicView.CustomRadioButton;
 
-import javax.swing.*;
 
 public class CopyRadioButton extends CustomRadioButton {
 
@@ -13,7 +11,11 @@ public class CopyRadioButton extends CustomRadioButton {
     private static final String COPY_SIZE = "Copy Size";
     private static final String COPY_POSITION = "Copy Position";
 
-    public CopyRadioButton(CopyStrategyEnum copyStrategyEnum, MainController mainController)
+    /**
+     * constructor
+     * @param copyStrategyEnum enum representing the type of copy that we want to do
+     */
+    public CopyRadioButton(CopyStrategyEnum copyStrategyEnum)
     {
         this.copyStrategyEnum = copyStrategyEnum;
         switch (copyStrategyEnum)
@@ -26,6 +28,10 @@ public class CopyRadioButton extends CustomRadioButton {
         }
     }
 
+    /**
+     * the type of copy that this menuItem represents
+     * @return a type of copy
+     */
     public CopyStrategyEnum getCopyStrategyEnum() {
         return copyStrategyEnum;
     }
