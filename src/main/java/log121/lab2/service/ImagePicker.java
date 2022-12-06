@@ -6,8 +6,15 @@ import java.awt.image.ImageFilter;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * This class allows to pick an image desired by the user.
+ */
 public class ImagePicker {
 
+    /**
+     *  this method gives a prompt to choose an image and afterwards returns the path of it if it is the good extension
+     * @return the path of the image
+     */
     public String pickImage()
     {
         String path = "";

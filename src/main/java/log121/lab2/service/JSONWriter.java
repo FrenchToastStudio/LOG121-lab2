@@ -9,6 +9,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ *  This class represents the writer that is used to write the JSON files which are used by the application
+ */
 public class JSONWriter {
     private static FileWriter file;
     protected static final String EXTENSION = ".json";
@@ -17,6 +20,10 @@ public class JSONWriter {
 
     protected static final LayoutFileFilter JSON_FILE_FORMAT = new LayoutFileFilter("JSON File Format", EXTENSION, true);
 
+    /**
+     * this method allows the application to save the current state
+     * @param saveState to be saved
+     */
     public void saveState(SaveState saveState){
         //Creer chanque objet
         JSONObject saveObject = new JSONObject();
