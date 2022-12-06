@@ -20,10 +20,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ *  This class represents the reader that is used to read the JSON files which are used by the application
+ */
 public class JSONReader {
     private List<Perspective> perspectiveList;
     private Image image;
 
+    /**
+     * this method allows to prompt the user to choose a file to be read
+     * @return the saveState that was read
+     */
     public SaveState load(){
         SaveState saveState = new SaveState();
 
@@ -47,6 +54,11 @@ public class JSONReader {
 
     }
 
+    /**
+     * This method allows the application to parse a file
+     * @param file to be parsed
+     * @return the saveState of the saved file
+     */
     public SaveState parse(File file){
         JSONParser parser = new JSONParser();
         SaveState saveState = new SaveState();

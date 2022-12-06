@@ -4,7 +4,7 @@ import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
 /**
- * This class allows
+ * This class allows to accept or decline files based on their extension
  */
 public class ExtensionFileFilter extends FileFilter {
 

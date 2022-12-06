@@ -11,6 +11,12 @@ public class LayoutFileFilter {
 
     }
 
+    /**
+     * constructor method that initiates a new LayoutFileFilter with specified variables
+     * @param description to be used
+     * @param extension to be used
+     * @param isDefault to be used
+     */
     public LayoutFileFilter(String description, String extension,
                             boolean isDefault) {
         this.description = description;
