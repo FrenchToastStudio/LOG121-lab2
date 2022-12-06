@@ -65,7 +65,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>log121.lab2/log121.lab2.HelloApplication</mainClass>
+                            <mainClass>log121.lab2/log121.lab2.Main</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
@@ -74,7 +74,7 @@
                             <noHeaderFiles>true</noHeaderFiles>
                         </configuration>
                     </execution>
-                </executions>
+                </executions>s
             </plugin>
         </plugins>
     </build>
