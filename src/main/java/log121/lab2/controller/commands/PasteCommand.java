@@ -12,6 +12,11 @@ public class PasteCommand extends Command {
         this.modificationController = modificationController;
     }
 
+    /**
+
+     Vérifie si la condition pour exécuter la commande est remplie.
+     @return true si la commande peut être exécutée, false sinon.
+     */
     @Override
     public void execute()
     {
@@ -23,6 +28,7 @@ public class PasteCommand extends Command {
     public boolean isConditionMet() {
         return needExectuion;
     }
+
 
     public void toggle()
     {
