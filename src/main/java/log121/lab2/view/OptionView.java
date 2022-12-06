@@ -8,6 +8,9 @@ import log121.lab2.view.copyStrategyViews.CopyStrategyMenuItem;
 
 import javax.swing.*;
 
+/**
+ * This class represents the option buttons in the application
+ */
 public class OptionView extends JMenuBar {
 
     private static final long serialVersionUID = 1L;
@@ -15,6 +18,10 @@ public class OptionView extends JMenuBar {
     private static final String OPTION_SAVE = "Sauvegarder";
     private static final String OPTION_LOAD = "Charger";
 
+    /**
+     * The class constructor initiates the menu options
+     * @param mainController the main controller that will use this View
+     */
     public OptionView(MainController mainController)
     {
         SaveImageMenuItem menuSave = new SaveImageMenuItem(OPTION_SAVE, mainController);

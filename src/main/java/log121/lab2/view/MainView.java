@@ -11,6 +11,9 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents the main window panel
+ */
 public class MainView extends JFrame implements Observer{
 
     private static final long serialVersionUID = 1L;
@@ -19,6 +22,10 @@ public class MainView extends JFrame implements Observer{
     private List<ImageView> imageViews;
     private ImageView activeImageView;
     SelectViewMenuBar selectViewMenuBar;
+
+    /**
+     * default constructor that will initiate the main window panel
+     */
     public MainView()
     {
 
@@ -34,6 +41,7 @@ public class MainView extends JFrame implements Observer{
         //endregion
 
         validate();
+        // assign a main controller
         MainController mainController = new MainController(this);
 
         OptionView optionView = new OptionView(mainController);
@@ -46,6 +54,10 @@ public class MainView extends JFrame implements Observer{
 
     }
 
+    /**
+     * this method permits us to add the different image views to the main window
+     * @param controllers
+     */
     public void setImageViews(List<ModificationController> controllers)
     {
         remove(selectViewMenuBar);
@@ -72,10 +84,19 @@ public class MainView extends JFrame implements Observer{
         ChangeImageView(0);
     }
 
+    /**
+     * this method permits to attach a view to a subject
+     * @param subject
+     */
     public void attachViewsToSubject(Subject subject)
     {
         this.imageViews.forEach(subject::attach);
     }
+
+    /**
+     * this method allows to change the imageView
+     * @param id
+     */
     public void ChangeImageView(int id)
     {
         if(activeImageView != null)

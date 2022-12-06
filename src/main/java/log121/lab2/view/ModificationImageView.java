@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * This class represents the views for the modifiable images in the application
+ */
 public class ModificationImageView extends ImageView{
 
     private Point lastMousePos;
@@ -32,6 +35,9 @@ public class ModificationImageView extends ImageView{
         viewSetUp();
     }
 
+    /**
+     * this method allows the view to be setup, it initiates the command
+     */
     private void viewSetUp()
     {
         MoveImageCommand moveImageCommand = new MoveImageCommand(modificationController);
@@ -52,6 +58,9 @@ public class ModificationImageView extends ImageView{
         addCommand(stopTranslateCommand);
         addCommand(stopZoomCommand);
 
+        /**
+         *  This method allows to check when the mouse is clicked and released
+         */
         super.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -70,7 +79,10 @@ public class ModificationImageView extends ImageView{
             }
         });
 
-
+        /**
+         *  This method allows to know when the mouse is being dragged and
+         *  then calls the proper method to move the image
+         */
         super.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
@@ -81,6 +93,9 @@ public class ModificationImageView extends ImageView{
             }
         });
 
+        /**
+         * This method allows the mousewheel to trigger the zoom image command
+         */
         super.addMouseWheelListener(new CustomMouseWheelListener(){
             public void mouseWheelMoved(MouseWheelEvent event) {
                 super.mouseWheelMoved(event);
@@ -137,6 +152,11 @@ public class ModificationImageView extends ImageView{
         activate();
     }
 
+    /**
+     * This method allows the program to check if the current mouse point is inside the image
+     * @param point the mouse point location
+     * @return boolean with the answer if it is or not
+     */
     public boolean isMouseOnImage(Point point){
         Rectangle rectangle = getImageLabel().getBounds();
         boolean isOnImage = rectangle.contains(point);
@@ -144,6 +164,11 @@ public class ModificationImageView extends ImageView{
         return isOnImage;
     }
 
+    /**
+     * This method allows the new position after a mouse drag on the images to be calculated
+     * @param newMousePoint last know mouse location
+     * @return the new position
+     */
     public Position calculateNewPosition(Point newMousePoint){
         Point imagePositon = getImagePosition();
 
@@ -152,6 +177,9 @@ public class ModificationImageView extends ImageView{
         lastMousePos = newMousePoint;
 
 
+        /**
+         *  There needs to be a check to make sure the image is not dragged too far outside
+         */
         Dimension windowRectangle = super.getSize();
         if(newPositionX < 0){
             newPositionX = 0;
@@ -166,13 +194,9 @@ public class ModificationImageView extends ImageView{
             newPositionY = windowRectangle.height;
         }
 
-        updateImagePos(newPositionX,newPositionY);
         return new Position(newPositionX,newPositionY);
     }
 
 
-    public void updateImagePos(int x, int y) {
-
-    }
 
 }

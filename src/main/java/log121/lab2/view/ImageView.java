@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents the ImageView
+ */
 public abstract class ImageView extends JPanel implements View, Observer{
 
     private ViewState viewState;
@@ -25,6 +28,10 @@ public abstract class ImageView extends JPanel implements View, Observer{
     protected int maxWidth;
     protected int maxHeight;
 
+    /**
+     * Constructor for the class
+     * @param commands is the list of commands
+     */
     public ImageView(List<Command> commands) {
 
         if(commands == null)

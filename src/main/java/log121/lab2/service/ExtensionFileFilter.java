@@ -3,6 +3,9 @@ package log121.lab2.service;
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
+/**
+ * This class allows
+ */
 public class ExtensionFileFilter extends FileFilter {
 
     protected LayoutFileFilter filter;
