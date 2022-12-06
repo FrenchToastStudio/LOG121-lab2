@@ -80,33 +80,19 @@ public class Perspective extends Subject {
     public void setZoom(int zoom) {
 
         if(zoom != 0) {
-            boolean isWidthBiggetThenHeight = width > height;
-            int ratio = isWidthBiggetThenHeight ? width/height : height/width;
-
-            if (this.width <= minSize && this.height <= minSize && zoom < 0)
-                return;
+            double scaledWidth = getWidth();
+            double scaledHeight = getHeight();
 
             this.zoom = zoom;
             double zoomWithScaling = zoom * scaleZoomBoost;
-            int zoomWithScalingInt = (int) zoomWithScaling;
+            double zoomPercentage = (1+zoomWithScaling/100);
 
-            int scaledWidth = getWidth();
-            scaledWidth += zoomWithScalingInt;
-
-            if (scaledWidth <= minSize)
-                width = minSize;
-            else
-                width = scaledWidth;
-
-            int scaledHeight = getHeight();
-            scaledHeight += zoomWithScalingInt;
-
-            if (scaledHeight <= minSize)
-                this.height = minSize;
-            else
-                this.height = scaledHeight;
-
-
+            scaledWidth = scaledWidth * zoomPercentage;
+            scaledHeight = scaledHeight * zoomPercentage;
+            if (!(zoom < 0 && (scaledWidth <= minSize || scaledWidth <= minSize))) {
+                this.width = (int) Math.ceil(scaledWidth);
+                this.height = (int) Math.ceil(scaledHeight);
+            }
             setSize(width, height);
         }
     }
