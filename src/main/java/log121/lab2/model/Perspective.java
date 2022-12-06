@@ -89,7 +89,7 @@ public class Perspective extends Subject {
 
             scaledWidth = scaledWidth * zoomPercentage;
             scaledHeight = scaledHeight * zoomPercentage;
-            if (!(zoom < 0 && (scaledWidth <= minSize || scaledWidth <= minSize))) {
+            if (!(zoom < 0 && (scaledWidth <= minSize || scaledHeight <= minSize))) {
                 this.width = (int) Math.ceil(scaledWidth);
                 this.height = (int) Math.ceil(scaledHeight);
             }
