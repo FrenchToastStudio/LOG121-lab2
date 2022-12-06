@@ -74,7 +74,7 @@
                             <noHeaderFiles>true</noHeaderFiles>
                         </configuration>
                     </execution>
-                </executions>s
+                </executions>
             </plugin>
         </plugins>
     </build>
